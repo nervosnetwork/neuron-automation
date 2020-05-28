@@ -98,5 +98,9 @@ public class PageBase {
     actions.doubleClick(webElement).build().perform();
   }
 
+  public void mouseover(ChromeDriver driver, WebElement webElement){
+    Actions action = new Actions(driver);
+    action.moveToElement(webElement).perform();
+  }
 
 }

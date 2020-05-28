@@ -19,7 +19,7 @@ public class ImportWalletTest extends TestBase {
 
     app.receivePage.driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 
-    app.settingPage.navigateWalletName.click();
+    app.settingPage.navigateToSettingPage();
     app.settingPage.clickWalletsTab();
     app.settingPage.clickImportMnemonicbUTTON();
 
@@ -34,10 +34,10 @@ public class ImportWalletTest extends TestBase {
 
     app.settingPage.inputPassword.sendKeys(pwd);
     app.settingPage.inputConfirmPassword.sendKeys(pwd);
-
     // click Next
     app.settingPage.clickSaveButton();
 
+    app.settingPage.backToMainWindow();
     Assert.assertEquals(app.createPage.navigateWalletName.getText(), importWalletName);
 
   }

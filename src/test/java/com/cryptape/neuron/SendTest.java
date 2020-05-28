@@ -26,7 +26,7 @@ public class SendTest extends TestBase {
       throw new Exception("timeout to wait for balance with non-zero.");
     }
 
-    System.out.println("balance is: " + app.sendPage.balance.getText()); // 482,372.00018174 CKB
+    System.out.println("balance is: " + app.sendPage.balance.getText());
     app.sendPage.inputAddress.sendKeys("ckt1qyqffstjpl0lnrguqyqvlv884epwgu94xqvsp42s9l");
     app.sendPage.inputAmount.sendKeys("100");
     app.sendPage.clickAddButton(0);

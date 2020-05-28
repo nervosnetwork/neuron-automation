@@ -16,7 +16,7 @@ function install(){
     ${NEURON_FILE_PATH} /q
   else
 	  echo -e $(date +"%Y-%m-%d %H:%M:%S") "ERROR: Installation file does not exist! Please check under the folder: ${NEURON_DIR}. \n" >>error-sh.log
-	fi
+  fi
 }
 
 function system-test(){

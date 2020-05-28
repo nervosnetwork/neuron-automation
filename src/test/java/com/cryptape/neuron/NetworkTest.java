@@ -15,7 +15,7 @@ public class NetworkTest extends TestBase {
     String addNetworkName = "Add new NetworkName 28 chars";
     String addNetworkURL = "http://localhost:8225";
 
-    app.settingPage.navigateWalletName.click();
+    app.settingPage.navigateToSettingPage();
     app.settingPage.clickNetworkTab();
 
     app.settingPage.clickAddNetworkButton();
@@ -26,8 +26,9 @@ public class NetworkTest extends TestBase {
 
     Thread.sleep(3000);
 
-    Assert.assertEquals(app.settingPage.getNetworkNameText(1), addNetworkName);
+    assertThat(app.settingPage.getNetworkNameText(1), containsString(addNetworkName));
     assertThat(app.settingPage.getNetworkURLText(1), containsString(addNetworkURL));
+    app.settingPage.backToMainWindow();
   }
 
   @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
@@ -35,11 +36,11 @@ public class NetworkTest extends TestBase {
     String updateNetworkName = "Updated NetworkName 28 chars";
     String updateNetworkURL = "http://localhost:8115";
 
-    app.settingPage.navigateWalletName.click();
+    app.settingPage.navigateToSettingPage();
     app.settingPage.clickNetworkTab();
 
-    app.settingPage.rightClick(app.driver, app.settingPage.networkNameList.get(0));
-    app.settingPage.clickEditNetworkFromContext();
+    app.settingPage.mouseover(app.driver, app.settingPage.networkNameList.get(0));
+    app.settingPage.clickEditNetwork(0);
 
     app.receivePage.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
@@ -51,19 +52,20 @@ public class NetworkTest extends TestBase {
 
     app.settingPage.clickSaveButton();
 
-    Assert.assertEquals(app.settingPage.getNetworkNameText(0), updateNetworkName);
+    assertThat(app.settingPage.getNetworkNameText(0), containsString(updateNetworkName));
     assertThat(app.settingPage.getNetworkURLText(0), containsString(updateNetworkURL));
+    app.settingPage.backToMainWindow();
   }
 
   @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
   public void testEditNetworkURL() throws InterruptedException {
     String updateNetworkURL = "http://localhost:8116";
 
-    app.settingPage.navigateWalletName.click();
+    app.settingPage.navigateToSettingPage();
     app.settingPage.clickNetworkTab();
 
-    app.settingPage.rightClick(app.driver, app.settingPage.networkNameList.get(0));
-    app.settingPage.clickEditNetworkFromContext();
+    app.settingPage.mouseover(app.driver, app.settingPage.networkNameList.get(0));
+    app.settingPage.clickEditNetwork(0);
 
     Thread.sleep(1000);
     app.networkPage.inputRPCURL.clear();
@@ -72,17 +74,18 @@ public class NetworkTest extends TestBase {
     app.settingPage.clickSaveButton();
 
     assertThat(app.settingPage.getNetworkURLText(0), containsString(updateNetworkURL));
+    app.settingPage.backToMainWindow();
   }
 
   @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
   public void testEditNetworkName() throws InterruptedException {
     String updateNetworkName = "UpdatedNetworkName28chars123";
 
-    app.settingPage.navigateWalletName.click();
+    app.settingPage.navigateToSettingPage();
     app.settingPage.clickNetworkTab();
 
-    app.settingPage.rightClick(app.driver, app.settingPage.networkNameList.get(0));
-    app.settingPage.clickEditNetworkFromContext();
+    app.settingPage.mouseover(app.driver, app.settingPage.networkNameList.get(0));
+    app.settingPage.clickEditNetwork(0);
 
     Thread.sleep(3000);
     app.networkPage.inputNetworkName.clear();
@@ -90,7 +93,8 @@ public class NetworkTest extends TestBase {
 
     app.settingPage.clickSaveButton();
 
-    Assert.assertEquals(app.settingPage.getNetworkNameText(0), updateNetworkName);
+    assertThat(app.settingPage.getNetworkNameText(0), containsString(updateNetworkName));
+    app.settingPage.backToMainWindow();
   }
 
 }

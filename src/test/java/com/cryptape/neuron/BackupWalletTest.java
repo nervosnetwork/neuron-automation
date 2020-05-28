@@ -18,11 +18,11 @@ public class BackupWalletTest extends TestBase {
     String backupPath = System.getProperty("user.dir") + "/resource";
     String backupFullPath = new File(backupPath, backupName).getAbsolutePath();
 
-    app.settingPage.navigateWalletName.click();
+    app.settingPage.navigateToSettingPage();
     app.settingPage.clickWalletsTab();
 
-    app.settingPage.rightClick(app.driver, app.settingPage.walletList.get(0));
-    app.settingPage.clickBackupWalletFromContext();
+    app.settingPage.mouseover(app.driver, app.settingPage.walletList.get(0));
+    app.settingPage.clickBackupWallet(0);
     app.settingPage.inputPasswordForBackup.sendKeys("Aa111111");
     app.settingPage.clickSaveButton();
 
@@ -37,6 +37,7 @@ public class BackupWalletTest extends TestBase {
     File file = new File(backupPath, backupName);
     System.out.println(file.getPath());
     Assert.assertTrue(file.exists(), "Wallet is not been saved!");
+    app.settingPage.backToMainWindow();
   }
 
 }
