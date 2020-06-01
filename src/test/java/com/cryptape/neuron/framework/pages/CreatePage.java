@@ -30,6 +30,8 @@ public class CreatePage extends PageBase {
   public WebElement generateMnemonic;
   @FindBy(xpath = "//button[@data-type='submit']")
   public WebElement nextBtn;
+  @FindBy(xpath = "//button[@data-type='cancel']")
+  public WebElement backBtn;
   @FindBy(xpath = "//textarea")
   public WebElement inputMnemonic;
   @FindBy(id = "name")

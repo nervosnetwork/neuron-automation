@@ -77,6 +77,8 @@ public class SettingPage extends PageBase {
 
   @FindBy(id = "password")
   public WebElement inputPasswordForDeleteWallet;
+  @FindBy(css = "span[class^='textField_errorMessage']")
+  public WebElement msgForWrongPassword;
 
   @FindBy(css = "#password")
   public WebElement inputPasswordForBackup;

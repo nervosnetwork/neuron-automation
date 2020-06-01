@@ -88,6 +88,14 @@ public class PageBase {
     keyEnter();
   }
 
+  public void clickMenuCreateWallet() {
+    keyAlt();
+    keyEnter();
+    keyDown();
+    keyDown();
+    keyEnter();
+  }
+
   public void rightClick(ChromeDriver driver, WebElement webElement) {
     Actions actions = new Actions(driver);
     actions.contextClick(webElement).perform();

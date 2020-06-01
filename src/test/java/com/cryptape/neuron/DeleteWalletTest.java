@@ -16,7 +16,11 @@ public class DeleteWalletTest extends TestBase {
     for (int i = 0; i < size; i++) {
       app.settingPage.mouseover(app.driver, app.settingPage.walletList.get(0));
       app.settingPage.clickDeleteWallet(0);
-      app.settingPage.inputPasswordForDeleteWallet.sendKeys("Aa111111");
+      if (app.settingPage.walletList.get(0).getText().equals(longestWalletName)) {
+        app.settingPage.inputPasswordForDeleteWallet.sendKeys(longestPWD);
+      } else {
+        app.settingPage.inputPasswordForDeleteWallet.sendKeys("Aa111111");
+      }
       app.settingPage.clickSaveButton();
     }
     app.settingPage.backToMainWindow();
@@ -26,5 +30,20 @@ public class DeleteWalletTest extends TestBase {
 
   }
 
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  public void testDeleteAWalletByWrongPWDNegative() {
+    app.settingPage.navigateToSettingPage();
+    app.settingPage.clickWalletsTab();
+    app.settingPage.mouseover(app.driver, app.settingPage.walletList.get(0));
+    app.settingPage.clickDeleteWallet(0);
+    app.settingPage.inputPasswordForDeleteWallet.sendKeys("Aa111112");
+    app.settingPage.clickSaveButton();
+    // verify the error message is displayed
+    Assert.assertTrue(app.settingPage.msgForWrongPassword.isDisplayed(),
+        "should display error message for wrong password");
+
+    app.settingPage.clickCancelButton();
+    app.settingPage.backToMainWindow();
+  }
 
 }
