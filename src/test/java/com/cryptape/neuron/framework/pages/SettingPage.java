@@ -139,10 +139,6 @@ public class SettingPage extends PageBase {
     importMnemonicBtn.click();
   }
 
-  public void clickImportMnemonicbUTTON() {
-    importMnemonicBtn.click();
-  }
-
   public void clickImportKeystoreButton() {
     importKeystoreBtn.click();
   }

@@ -14,7 +14,7 @@ public class TestBase {
   public String ckbPath = app.getYMLValue("ckbPath");
   public String nodePath = app.getYMLValue("nodePath");
   // password of 50 length and starts with special symbols
-  public String longestPWD = "_1234567890abcdefg~!@#$%^&*()_+QWERTYUIOP[] ASDFGH";
+  public String longestPWD = "$_1234567890abcdefg~!@#%^&*()_+QWERTYUIOP[] ASDFGH";
   // wallet name with longest length of 20
   public String longestWalletName = "Wallet Longest123456";
 

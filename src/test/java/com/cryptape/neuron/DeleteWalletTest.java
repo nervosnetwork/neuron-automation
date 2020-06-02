@@ -16,7 +16,7 @@ public class DeleteWalletTest extends TestBase {
     for (int i = 0; i < size; i++) {
       app.settingPage.mouseover(app.driver, app.settingPage.walletList.get(0));
       app.settingPage.clickDeleteWallet(0);
-      if (app.settingPage.walletList.get(0).getText().equals(longestWalletName)) {
+      if (app.settingPage.walletList.get(0).getText().contains("Longest")) {
         app.settingPage.inputPasswordForDeleteWallet.sendKeys(longestPWD);
       } else {
         app.settingPage.inputPasswordForDeleteWallet.sendKeys("Aa111111");
