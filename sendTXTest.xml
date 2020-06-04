@@ -10,7 +10,7 @@
     <classes>
       <class name="com.cryptape.neuron.ImportWalletTest">
         <methods>
-          <exclude name="testImportMnemonicFromSetting"/>
+          <include name="testImportKeystoreFromMenu"/>
         </methods>
       </class>
       <class name="com.cryptape.neuron.SendTest"/>
