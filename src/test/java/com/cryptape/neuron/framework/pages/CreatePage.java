@@ -25,7 +25,7 @@ public class CreatePage extends PageBase {
   @FindBy(css = "#password")
   public WebElement inputPasswordForImportKeystore;
 
-  // Import or Generate Memonic page
+  // Import or Generate Mnemonic page
   @FindBy(xpath = "//textarea")
   public WebElement generateMnemonic;
   @FindBy(xpath = "//button[@data-type='submit']")
