@@ -1,7 +1,7 @@
 
-#ckbPath: #replace here with the full path where ckb binary located, e.g. D:/ckb #
-#nodePath: #replace here with ckb node's full path, e.g. D:/ckb/devNet #
-#chromedriverPath: /Users/Cedar/Dev/Install/chromedriver
+#ckbPath: #replace here with the full path where ckb binary located, e.g. /Users/Cedar/Dev/ckb #
+#nodePath: #replace here with ckb node's full path, e.g. /Users/Cedar/Dev/ckb #
+#chromedriverPath: #replace here with chromedriver's full path, e.g. /Users/Cedar/Dev/Install/chromedriver #
 
 ckbPath: /Users/Cedar/Dev/ckb
 nodePath: /Users/Cedar/Dev/ckb
