@@ -10,8 +10,9 @@ public class SendTest extends TestBase {
   @Test(dependsOnMethods = "com.cryptape.neuron.ImportWalletTest.testImportKeystoreFromMenu")
   public void testNormalTransfer() throws Exception {
     app.sendPage.navigateToSendPage();
-
-    // wait for balance not to be 0
+      Thread.sleep(2000);
+      String getCKBtext = app.sendPage.balance.getText();
+      // wait for balance not to be 0
     boolean waitBalanceSynced = waitFor(new WaitUntil() {
       @Override
       public boolean waitUntil() {
@@ -48,7 +49,8 @@ public class SendTest extends TestBase {
     Assert.assertEquals(app.historyPage.transactionSummaryList.get(0).getAttribute("data-status"),
         "pending");
 
-    String cmdMiner = ckbPath + "ckb.exe miner -C " + nodePath + " --limit 5";
+//    String cmdMiner = ckbPath + "ckb.exe miner -C " + nodePath + " --limit 5";
+      String cmdMiner = ckbPath + "./ckb miner -C " + nodePath + " --limit 5";
     runCommand("\"" + cmdMiner + "\"");
 
     // wait for tx to be committed

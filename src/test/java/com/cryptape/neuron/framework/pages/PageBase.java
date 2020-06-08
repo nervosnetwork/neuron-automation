@@ -1,13 +1,13 @@
 package com.cryptape.neuron.framework.pages;
 
 import com.cryptape.neuron.framework.CommonUtil;
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class PageBase {
 
@@ -46,10 +46,16 @@ public class PageBase {
     robot.keyRelease(KeyEvent.VK_DOWN);
   }
 
-  public void keyEnter() {
+    public void keyEnter() {
+        robot.delay(200);
+        robot.keyPress(KeyEvent.VK_ENTER);
+        robot.keyRelease(KeyEvent.VK_ENTER);
+    }
+
+  public void keySlash() {
     robot.delay(200);
-    robot.keyPress(KeyEvent.VK_ENTER);
-    robot.keyRelease(KeyEvent.VK_ENTER);
+    robot.keyPress(KeyEvent.VK_SLASH);
+    robot.keyRelease(KeyEvent.VK_SLASH);
   }
 
   public void keyAlt() {
@@ -58,7 +64,27 @@ public class PageBase {
     robot.keyRelease(KeyEvent.VK_ALT);
   }
 
-  public void keyCtrlV() {
+    public void keyCommandV() {
+        robot.delay(500);
+        robot.keyPress(KeyEvent.VK_META);
+        robot.delay(500);
+        robot.keyPress(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_META);
+        robot.keyRelease(KeyEvent.VK_V);
+    }
+
+    public void keyCommandA() {
+        robot.delay(500);
+        robot.keyPress(KeyEvent.VK_META);
+        robot.delay(500);
+        robot.keyPress(KeyEvent.VK_A);
+        robot.keyRelease(KeyEvent.VK_META);
+        robot.keyRelease(KeyEvent.VK_A);
+    }
+
+
+
+    public void keyCtrlV() {
     robot.delay(500);
     robot.keyPress(KeyEvent.VK_CONTROL);
     robot.delay(500);

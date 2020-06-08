@@ -1,13 +1,14 @@
 package com.cryptape.neuron;
 
 import com.cryptape.neuron.framework.TestBase;
-import java.awt.Toolkit;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.io.File;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
-import org.testng.Assert;
-import org.testng.annotations.Test;
 
 public class BackupWalletTest extends TestBase {
 
@@ -16,6 +17,7 @@ public class BackupWalletTest extends TestBase {
     String backupName =
         app.settingPage.navigateWalletName.getText() + new Date().getTime() + "backup.json";
     String backupPath = System.getProperty("user.dir") + "/resource";
+//      String backupPath = "/Users/Cedar/Downloads";
     String backupFullPath = new File(backupPath, backupName).getAbsolutePath();
 
     app.settingPage.navigateWalletName.click();
@@ -30,9 +32,14 @@ public class BackupWalletTest extends TestBase {
     Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
     app.settingPage.driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 
-    app.settingPage.keyCtrlV();
-    app.settingPage.keyEnter();
-    Thread.sleep(1000);
+
+      app.createPage.keySlash();
+      app.createPage.keyCommandA();
+      app.createPage.keyCommandV();
+      app.createPage.keyEnter();
+      Thread.sleep(2000);
+      app.createPage.keyEnter();
+    Thread.sleep(2000);
 
     File file = new File(backupPath, backupName);
     System.out.println(file.getPath());

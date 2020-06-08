@@ -1,19 +1,28 @@
 package com.cryptape.neuron;
 
 import com.cryptape.neuron.framework.TestBase;
-import java.awt.Toolkit;
-import java.awt.datatransfer.StringSelection;
-import java.io.File;
-import java.util.Date;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.*;
+import java.util.Date;
 
 public class ReceivePageTest extends TestBase {
 
   @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
-  public void testReceiveSaveImage() throws InterruptedException {
+  public void testReceiveSaveImage() throws Exception {
     app.receivePage.navigateToReceivePage();
-    app.receivePage.clickSaveImageButton();
+//    app.receivePage.clickSaveImageButton();
+      app.receivePage.clickCopyImageButton();
+
 
     Thread.sleep(1000);
     String path = System.getProperty("user.dir") + "/resource";
@@ -21,10 +30,18 @@ public class ReceivePageTest extends TestBase {
     String saveReceivePath = new File(path, fileName).getAbsolutePath();
 
     StringSelection stringSelection = new StringSelection(saveReceivePath);
-    Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+//    Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
 
-    app.receivePage.keyCtrlV();
-    app.receivePage.keyEnter();
+      Image image = getImageFromClipboard();
+      File file1 = new File(saveReceivePath);
+      //转成png
+      BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+      Graphics2D g = bufferedImage.createGraphics();
+      g.drawImage(image, null, null);
+      ImageIO.write((RenderedImage) bufferedImage, "png", file1);
+
+//    app.receivePage.keyCtrlV();
+//    app.receivePage.keyEnter();
 
     Thread.sleep(1000);
     File file = new File(path, fileName);
@@ -34,4 +51,89 @@ public class ReceivePageTest extends TestBase {
   }
 
 
+    /**
+     * 从剪切板获得图片。
+     */
+    public static Image getImageFromClipboard() throws Exception {
+        Clipboard sysc = Toolkit.getDefaultToolkit().getSystemClipboard();
+        Transferable cc = sysc.getContents(null);
+        if (cc == null)
+            return null;
+        else if (cc.isDataFlavorSupported(DataFlavor.imageFlavor))
+            return (Image) cc.getTransferData(DataFlavor.imageFlavor);
+        return null;
+    }
+
+
+    private void savePic(InputStream inputStream, String fileName) {
+
+
+
+        OutputStream os = null;
+
+        try {
+
+            String path = "D:\\testFile\\";
+
+            // 2、保存到临时文件
+
+            // 1K的数据缓冲
+
+            byte[] bs = new byte[1024];
+
+            // 读取到的数据长度
+
+            int len;
+
+            // 输出的文件流保存到本地文件
+
+
+
+            File tempFile = new File(path);
+
+            if (!tempFile.exists()) {
+
+                tempFile.mkdirs();
+
+            }
+
+            os = new FileOutputStream(tempFile.getPath() + File.separator + fileName);
+
+            // 开始读取
+
+            while ((len = inputStream.read(bs)) != -1) {
+
+                os.write(bs, 0, len);
+
+            }
+
+
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        } finally {
+
+            // 完毕，关闭所有链接
+
+            try {
+
+                os.close();
+
+                inputStream.close();
+
+            } catch (IOException e) {
+
+                e.printStackTrace();
+
+            }
+
+        }
+
+    }
 }

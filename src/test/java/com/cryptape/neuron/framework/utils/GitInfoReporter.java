@@ -1,10 +1,12 @@
 package com.cryptape.neuron.framework.utils;
 
+import org.testng.ISuite;
+import org.testng.ISuiteListener;
+import org.testng.Reporter;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import org.testng.ISuiteListener;
-import org.testng.Reporter;
 
 public class GitInfoReporter implements ISuiteListener {
 
@@ -32,4 +34,13 @@ public class GitInfoReporter implements ISuiteListener {
     }
   }
 
+    @Override
+    public void onStart(ISuite suite) {
+
+    }
+
+    @Override
+    public void onFinish(ISuite suite) {
+
+    }
 }

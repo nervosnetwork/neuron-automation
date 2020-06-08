@@ -1,21 +1,16 @@
 package com.cryptape.neuron.framework;
 
-import com.cryptape.neuron.framework.pages.CreatePage;
-import com.cryptape.neuron.framework.pages.DAOPage;
-import com.cryptape.neuron.framework.pages.HistoryPage;
-import com.cryptape.neuron.framework.pages.NetworkPage;
-import com.cryptape.neuron.framework.pages.ReceivePage;
-import com.cryptape.neuron.framework.pages.SendPage;
-import com.cryptape.neuron.framework.pages.SettingPage;
-import java.awt.AWTException;
+import com.cryptape.neuron.framework.pages.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.yaml.snakeyaml.Yaml;
+
+import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.yaml.snakeyaml.Yaml;
 
 public class ApplicationManager {
 
@@ -33,8 +28,9 @@ public class ApplicationManager {
 
 
   public void init() throws AWTException {
-
-    options.setBinary(System.getenv("LOCALAPPDATA") + "/Programs/Neuron/Neuron.exe");
+//    String localAppData = System.getenv("LOCALAPPDATA");
+//    options.setBinary(localAppData + "/Applications/Neuron.app");
+    options.setBinary("/Applications/Neuron.app/Contents/MacOS/Neuron");
     System.setProperty("webdriver.chrome.driver", getYMLValue("chromedriverPath"));
     driver = new ChromeDriver(options);
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -68,7 +64,7 @@ public class ApplicationManager {
       return null;
     }
     Yaml yaml = new Yaml();
-    Map<String, Object> object = yaml.load(input);
+    Map<String, Object> object = (Map<String, Object>) yaml.load(input);
     return object;
   }
 }

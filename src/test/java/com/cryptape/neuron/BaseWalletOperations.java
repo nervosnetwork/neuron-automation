@@ -4,7 +4,7 @@ import com.cryptape.neuron.framework.TestBase;
 
 public class BaseWalletOperations extends TestBase {
 
-  public void createNewWallet(String walletName, String pwd) {
+  public void createNewWallet(String walletName, String pwd) throws InterruptedException {
     app.createPage.clickCreateBtn();
 
     //Generate mnemonic
@@ -20,8 +20,13 @@ public class BaseWalletOperations extends TestBase {
     // click Next
     app.createPage.nextBtn.click();
 
+      Thread.sleep(1000);
     // input wallet name
-    app.createPage.inputWalletName.clear();
+      for(int temp=0;temp<6;temp++){
+          app.createPage.inputWalletName.clear();
+          Thread.sleep(1000);
+          if(app.createPage.inputWalletName.getText()=="") break;
+      }
     app.createPage.inputWalletName.sendKeys(walletName);
 
     app.createPage.inputPassword.sendKeys(pwd);
@@ -31,5 +36,4 @@ public class BaseWalletOperations extends TestBase {
     app.createPage.nextBtn.click();
 
   }
-
 }
