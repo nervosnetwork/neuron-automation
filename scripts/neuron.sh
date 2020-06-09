@@ -24,12 +24,7 @@ function download_linux() {
 }
 
 function install_win(){
-  if test -e ${NEURON_WIN_FILE_PATH}
-  then
-    ${NEURON_WIN_FILE_PATH} /S
-  else
-	  echo -e $(date +"%Y-%m-%d %H:%M:%S") "ERROR: Installation file does not exist! Please check under the folder: ${NEURON_DIR}. \n" >>error-sh.log
-  fi
+  cmd "/c start cmd.exe /K" %cd%\\scripts\\install_neuron_win.bat ${NEURON_VERSION}
 }
 
 function system-test(){
