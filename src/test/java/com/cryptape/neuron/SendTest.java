@@ -15,7 +15,7 @@ public class SendTest extends TestBase {
     boolean waitBalanceSynced = waitFor(new WaitUntil() {
       @Override
       public boolean waitUntil() {
-        if (!app.sendPage.balance.getText().equals("0 CKB")) {
+        if (!app.sendPage.balance.getText().equals("0")) {
           return true;
         }
         return false;
@@ -27,6 +27,8 @@ public class SendTest extends TestBase {
     }
 
     System.out.println("balance is: " + app.sendPage.balance.getText());
+    app.sendPage.inputAddress.clear();
+    app.sendPage.inputAmount.clear();
     app.sendPage.inputAddress.sendKeys("ckt1qyqffstjpl0lnrguqyqvlv884epwgu94xqvsp42s9l");
     app.sendPage.inputAmount.sendKeys("100");
     app.sendPage.clickAddButton(0);
@@ -37,7 +39,7 @@ public class SendTest extends TestBase {
     app.sendPage.switchAdvancedTXfee();
 
     app.sendPage.expectedSpeed.click(); // click expected speed list
-    Assert.assertEquals(app.sendPage.speedDropdownList.size(), 4);
+    Assert.assertEquals(app.sendPage.speedDropdownList.size(), 3);
 
     app.sendPage.clickSubmitButton();
 
