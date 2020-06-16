@@ -1,11 +1,12 @@
 package com.cryptape.neuron.framework.pages;
 
-import java.awt.AWTException;
-import java.util.List;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import java.awt.*;
+import java.util.List;
 
 public class SendPage extends PageBase {
 
@@ -13,7 +14,7 @@ public class SendPage extends PageBase {
   @FindBy(xpath = "/html//navbar//button[@data-link='/send']")
   public WebElement navigateSend;
 
-  @FindBy(css = "div[class^='send_balance'] span[class='css-183']")
+  @FindBy(css = "div[class^='send_balance'] span[class^='css']")
   public WebElement balance;
 
   @FindBy(css = "#address")

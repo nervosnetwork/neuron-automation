@@ -5,13 +5,23 @@ import com.cryptape.neuron.framework.utils.WaitUntil;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.Date;
+
 public class SendTest extends TestBase {
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.ImportWalletTest.testImportKeystoreFromMenu")
+    BaseWalletOperations BWO = new BaseWalletOperations();
+
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet" )
   public void testNormalTransfer() throws Exception {
+      String walletName = "import"+ new Date().getTime();
+      String pwd = "Aa111111";
+      String navigateWalletName = BWO.importWallet(walletName,pwd);
+      Assert.assertEquals(navigateWalletName, walletName);
+
+      app.settingPage.goToMainWindow();
+
     app.sendPage.navigateToSendPage();
-      Thread.sleep(2000);
-      String getCKBtext = app.sendPage.balance.getText();
+
       // wait for balance not to be 0
     boolean waitBalanceSynced = waitFor(new WaitUntil() {
       @Override
@@ -45,13 +55,19 @@ public class SendTest extends TestBase {
     app.sendPage.inputPWD.sendKeys("Aa111111");
     app.sendPage.clickPWDSubmit();
 
+      Thread.sleep(5000);
     String txHash = app.historyPage.transactionSummaryList.get(0).getAttribute("data-hash");
-    Assert.assertEquals(app.historyPage.transactionSummaryList.get(0).getAttribute("data-status"),
-        "pending");
+    String dataStatus =app.historyPage.transactionSummaryList.get(0).getAttribute("data-status");
+    Assert.assertEquals(dataStatus, "pending");
 
-//    String cmdMiner = ckbPath + "ckb.exe miner -C " + nodePath + " --limit 5";
-      String cmdMiner = ckbPath + "./ckb miner -C " + nodePath + " --limit 5";
-    runCommand("\"" + cmdMiner + "\"");
+    if (app.OS.equals("mac os x")) {
+        String cmdMiner = ckbPath + "/./ckb miner -C " + nodePath + " --limit 5";
+        runCommand(cmdMiner);
+    } else{
+        String cmdMiner = ckbPath + "ckb.exe miner -C " + nodePath + " --limit 5";
+        runCommand("\"" + cmdMiner + "\"");
+    }
+
 
     // wait for tx to be committed
     boolean waitTXCommitted = waitFor(new WaitUntil() {
@@ -69,6 +85,7 @@ public class SendTest extends TestBase {
       throw new Exception("timeout to wait for tx to be committed!");
     }
 
+      Thread.sleep(5000);
     int num = 0;
     for (int i = 0; i < app.historyPage.transactionSummaryList.size(); i++) {
       if (app.historyPage.transactionSummaryList.get(i).getAttribute("data-hash").equals(txHash)) {
@@ -76,8 +93,8 @@ public class SendTest extends TestBase {
         break;
       }
     }
-    Assert.assertEquals(app.historyPage.transactionSummaryList.get(num).getAttribute("data-status"),
-        "confirming");
+      dataStatus =app.historyPage.transactionSummaryList.get(num).getAttribute("data-status");
+    Assert.assertEquals(dataStatus, "confirming");
   }
 
 }

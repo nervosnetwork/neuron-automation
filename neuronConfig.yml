@@ -4,5 +4,5 @@
 #chromedriverPath: #replace here with chromedriver's full path, e.g. /Users/Cedar/Dev/Install/chromedriver #
 
 ckbPath: /Users/Cedar/Dev/ckb
-nodePath: /Users/Cedar/Dev/ckb
+nodePath: /Users/Cedar/Dev/ckb/test
 chromedriverPath: /Users/Cedar/Dev/Install/chromedriver-v7.1.11-mas-x64/chromedriver

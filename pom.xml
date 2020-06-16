@@ -7,52 +7,35 @@
   <groupId>com.cryptape</groupId>
   <artifactId>neuron-uiautomation</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <repositories>
-    <!-- Remote Repository - aliyun -->
-    <repository>
-        <id>central</id>
-        <name>central aliyun</name>
-        <!--<url>http://maven.aliyun.com/nexus/content/groups/public</url>-->
-        <url>https://maven.aliyun.com/repository/central</url>
-    </repository>
+    <repositories>
+        <!-- Remote Repository - aliyun -->
+        <repository>
+            <id>central</id>
+            <name>central aliyun</name>
+            <!--<url>http://maven.aliyun.com/nexus/content/groups/public</url>-->
+            <url>https://maven.aliyun.com/repository/central</url>
+        </repository>
+    </repositories>
 
-    <!--&lt;!&ndash; Remote Repository - Maven Center &ndash;&gt;-->
-    <!--<repository>-->
-        <!--<id>central</id>-->
-        <!--<name>Maven Center</name>-->
-        <!--<url>https://repo1.maven.org/maven2</url>-->
-    <!--</repository>-->
-  </repositories>
-
-  <properties>
+    <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <suiteXmlFile>systemTest.xml</suiteXmlFile>
   </properties>
-  <build>
+    <build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.1</version>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
+          <configuration>
+              <source>8</source>
+              <target>8</target>
+          </configuration>
       </plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.20</version>
-        <!--<version>3.0.0-M4</version>-->
-
-          <!--<dependency>-->
-              <!--<groupId>org.apache.maven.plugins</groupId>-->
-              <!--<artifactId>maven-surefire-plugin</artifactId>-->
-              <!--<version>3.0.0-M4</version>-->
-              <!--<type>pom</type>-->
-          <!--</dependency>-->
-
+        <version>3.0.0-M4</version>
         <configuration>
           <suiteXmlFiles>
             <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
@@ -73,7 +56,6 @@
       </plugin>
     </plugins>
   </build>
-
   <dependencies>
     <dependency>
       <groupId>org.testng</groupId>

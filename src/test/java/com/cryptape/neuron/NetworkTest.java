@@ -1,96 +1,104 @@
 package com.cryptape.neuron;
 
+import com.cryptape.neuron.framework.TestBase;
+import org.testng.annotations.Test;
+
+import java.util.concurrent.TimeUnit;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 
-import com.cryptape.neuron.framework.TestBase;
-import java.util.concurrent.TimeUnit;
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
 public class NetworkTest extends TestBase {
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
-  public void testAddNetwork() throws InterruptedException {
-    String addNetworkName = "Add new NetworkName 28 chars";
-    String addNetworkURL = "http://localhost:8225";
+    @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+    public void testAddNetwork() throws InterruptedException {
+        String addNetworkName = "Add new NetworkName 28 chars";
+        String addNetworkURL = "http://localhost:8225";
 
-    app.settingPage.navigateWalletName.click();
-    app.settingPage.clickNetworkTab();
+        app.settingPage.navigateToSettingPage();
+        app.settingPage.clickNetworkTab();
 
-    app.settingPage.clickAddNetworkButton();
+        app.settingPage.clickAddNetworkButton();
 
-    app.networkPage.inputRPCURL.sendKeys(addNetworkURL);
-    app.networkPage.inputNetworkName.sendKeys(addNetworkName);
-    app.settingPage.clickSaveButton();
+        app.networkPage.inputRPCURL.sendKeys(addNetworkURL);
+        app.networkPage.inputNetworkName.sendKeys(addNetworkName);
+        app.settingPage.clickSaveButton();
 
-    Thread.sleep(3000);
+        Thread.sleep(3000);
 
-    Assert.assertEquals(app.settingPage.getNetworkNameText(1), addNetworkName);
-    assertThat(app.settingPage.getNetworkURLText(1), containsString(addNetworkURL));
-  }
+        app.settingPage.mouseover(app.driver, app.settingPage.networkNameList.get(1));
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
-  public void testEditNetwork() {
-    String updateNetworkName = "Updated NetworkName 28 chars";
-    String updateNetworkURL = "http://localhost:8115";
+        assertThat(app.settingPage.getNetworkNameText(1), containsString(addNetworkName));
+        assertThat(app.settingPage.getNetworkURLText(1), containsString(addNetworkURL));
+        app.settingPage.backToMainWindow();
+    }
 
-    app.settingPage.navigateWalletName.click();
-    app.settingPage.clickNetworkTab();
+    @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+    public void testEditNetwork() {
+        String updateNetworkName = "Updated NetworkName 28 chars";
+        String updateNetworkURL = "http://localhost:8115";
 
-    app.settingPage.rightClick(app.driver, app.settingPage.networkNameList.get(0));
-    app.settingPage.clickEditNetworkFromContext();
+        app.settingPage.navigateToSettingPage();
+        app.settingPage.clickNetworkTab();
 
-    app.receivePage.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+//        int i = app.settingPage.networkNameList.size();
 
-    app.networkPage.inputRPCURL.clear();
-    app.networkPage.inputRPCURL.sendKeys(updateNetworkURL);
+        app.settingPage.mouseover(app.driver, app.settingPage.networkNameList.get(0));
+        app.settingPage.clickEditNetwork(0);
 
-    app.networkPage.inputNetworkName.clear();
-    app.networkPage.inputNetworkName.sendKeys(updateNetworkName);
+        app.receivePage.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
-    app.settingPage.clickSaveButton();
+        app.networkPage.inputRPCURL.clear();
+        app.networkPage.inputRPCURL.sendKeys(updateNetworkURL);
 
-    Assert.assertEquals(app.settingPage.getNetworkNameText(0), updateNetworkName);
-    assertThat(app.settingPage.getNetworkURLText(0), containsString(updateNetworkURL));
-  }
+        app.networkPage.inputNetworkName.clear();
+        app.networkPage.inputNetworkName.sendKeys(updateNetworkName);
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
-  public void testEditNetworkURL() throws InterruptedException {
-    String updateNetworkURL = "http://localhost:8116";
+        app.settingPage.clickSaveButton();
 
-    app.settingPage.navigateWalletName.click();
-    app.settingPage.clickNetworkTab();
+        assertThat(app.settingPage.getNetworkNameText(0), containsString(updateNetworkName));
+        assertThat(app.settingPage.getNetworkURLText(0), containsString(updateNetworkURL));
+        app.settingPage.backToMainWindow();
+    }
 
-    app.settingPage.rightClick(app.driver, app.settingPage.networkNameList.get(0));
-    app.settingPage.clickEditNetworkFromContext();
+    @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+    public void testEditNetworkURL() throws InterruptedException {
+        String updateNetworkURL = "http://localhost:8116";
 
-    Thread.sleep(1000);
-    app.networkPage.inputRPCURL.clear();
-    app.networkPage.inputRPCURL.sendKeys(updateNetworkURL);
+        app.settingPage.navigateToSettingPage();
+        app.settingPage.clickNetworkTab();
 
-    app.settingPage.clickSaveButton();
+        app.settingPage.mouseover(app.driver, app.settingPage.networkNameList.get(0));
+        app.settingPage.clickEditNetwork(0);
 
-    assertThat(app.settingPage.getNetworkURLText(0), containsString(updateNetworkURL));
-  }
+        Thread.sleep(1000);
+        app.networkPage.inputRPCURL.clear();
+        app.networkPage.inputRPCURL.sendKeys(updateNetworkURL);
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
-  public void testEditNetworkName() throws InterruptedException {
-    String updateNetworkName = "UpdatedNetworkName28chars123";
+        app.settingPage.clickSaveButton();
 
-    app.settingPage.navigateWalletName.click();
-    app.settingPage.clickNetworkTab();
+        assertThat(app.settingPage.getNetworkURLText(0), containsString(updateNetworkURL));
+        app.settingPage.backToMainWindow();
+    }
 
-    app.settingPage.rightClick(app.driver, app.settingPage.networkNameList.get(0));
-    app.settingPage.clickEditNetworkFromContext();
+    @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+    public void testEditNetworkName() throws InterruptedException {
+        String updateNetworkName = "UpdatedNetworkName28chars123";
 
-    Thread.sleep(3000);
-    app.networkPage.inputNetworkName.clear();
-    app.networkPage.inputNetworkName.sendKeys(updateNetworkName);
+        app.settingPage.navigateToSettingPage();
+        app.settingPage.clickNetworkTab();
 
-    app.settingPage.clickSaveButton();
+        app.settingPage.mouseover(app.driver, app.settingPage.networkNameList.get(0));
+        app.settingPage.clickEditNetwork(0);
 
-    Assert.assertEquals(app.settingPage.getNetworkNameText(0), updateNetworkName);
-  }
+        Thread.sleep(3000);
+        app.networkPage.inputNetworkName.clear();
+        app.networkPage.inputNetworkName.sendKeys(updateNetworkName);
+
+        app.settingPage.clickSaveButton();
+
+        assertThat(app.settingPage.getNetworkNameText(0), containsString(updateNetworkName));
+        app.settingPage.backToMainWindow();
+    }
 
 }

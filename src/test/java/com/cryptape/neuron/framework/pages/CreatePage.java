@@ -1,10 +1,11 @@
 package com.cryptape.neuron.framework.pages;
 
-import java.awt.AWTException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import java.awt.*;
 
 public class CreatePage extends PageBase {
 
@@ -30,6 +31,8 @@ public class CreatePage extends PageBase {
   public WebElement generateMnemonic;
   @FindBy(xpath = "//button[@data-type='submit']")
   public WebElement nextBtn;
+    @FindBy(xpath = "//button[@data-type='cancel']")
+    public WebElement backBtn;
   @FindBy(xpath = "//textarea")
   public WebElement inputMnemonic;
   @FindBy(id = "name")
@@ -51,6 +54,11 @@ public class CreatePage extends PageBase {
 
   public void clickCreateBtn() {
     createBtn.click();
+
+//      app.settingPage.navigateWalletName.click();
+//      app.settingPage.navigateToSettingPage();
+//      app.settingPage.clickWalletsTab();
+//      app.settingPage.clickCreateButton();
   }
 
   public void clickSubmitBtn() {
