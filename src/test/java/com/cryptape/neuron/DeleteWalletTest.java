@@ -7,13 +7,14 @@ import org.testng.annotations.Test;
 public class DeleteWalletTest extends TestBase {
 
   @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
-  public void testDeleteAllWalletFromSetting() {
+  public void testDeleteAllWalletFromSetting() throws InterruptedException {
 
     app.settingPage.navigateToSettingPage();
     app.settingPage.clickWalletsTab();
 
     int size = app.settingPage.walletList.size();
     for (int i = 0; i < size; i++) {
+      Thread.sleep(1000);
       app.settingPage.mouseover(app.driver, app.settingPage.walletList.get(0));
       app.settingPage.clickDeleteWallet(0);
       if (app.settingPage.walletList.get(0).getText().contains("Longest")) {

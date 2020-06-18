@@ -105,7 +105,7 @@ public class SettingPage extends PageBase {
   public void backToMainWindow() {
     try {
       Set winHandles = driver.getWindowHandles();
-      if(winHandles.size() > 1) {
+      if (winHandles.size() > 1) {
         ArrayList windows = new ArrayList(winHandles);
         driver.switchTo().window((String) windows.get(0));
         Thread.sleep(1000);
@@ -116,7 +116,11 @@ public class SettingPage extends PageBase {
   }
 
   public void clickWalletsTab() {
-    walletsTab.click();
+    try {
+      walletsTab.click();
+    } catch (Exception e) {
+      util.waitForElementLocated(this.driver, 30, walletsTab).click();
+    }
   }
 
   public void clickNetworkTab() {
@@ -167,35 +171,35 @@ public class SettingPage extends PageBase {
 //    nextBtn.click();
 //  }
 
-  public void clickEditWallet(int index){
-    try{
+  public void clickEditWallet(int index) {
+    try {
       editWalletBtnList.get(index).click();
     } catch (Exception e) {
-      util.waitForElementLocated(this.driver, 30, editWalletBtnList.get(index));
+      util.waitForElementLocated(this.driver, 30, editWalletBtnList.get(index)).click();
     }
   }
 
-  public void clickDeleteWallet(int index){
-    try{
+  public void clickDeleteWallet(int index) {
+    try {
       deleteWalletBtnList.get(index).click();
     } catch (Exception e) {
-      util.waitForElementLocated(this.driver, 30, deleteWalletBtnList.get(index));
+      util.waitForElementLocated(this.driver, 30, deleteWalletBtnList.get(index)).click();
     }
   }
 
-  public void clickBackupWallet(int index){
-    try{
+  public void clickBackupWallet(int index) {
+    try {
       backupWalletBtnList.get(index).click();
     } catch (Exception e) {
-      util.waitForElementLocated(this.driver, 30, backupWalletBtnList.get(index));
+      util.waitForElementLocated(this.driver, 30, backupWalletBtnList.get(index)).click();
     }
   }
 
-  public void clickEditNetwork(int index){
-    try{
+  public void clickEditNetwork(int index) {
+    try {
       editNetworkBtnList.get(index).click();
     } catch (Exception e) {
-      util.waitForElementLocated(this.driver, 30, editNetworkBtnList.get(index));
+      util.waitForElementLocated(this.driver, 30, editNetworkBtnList.get(index)).click();
     }
   }
 

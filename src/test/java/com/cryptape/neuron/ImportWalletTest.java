@@ -149,7 +149,7 @@ public class ImportWalletTest extends TestBase {
 
     // close the pop-up error window
     Robot robot = new Robot();
-    robot.delay(2000);
+    robot.delay(5000);
     robot.keyPress(KeyEvent.VK_ENTER);
     robot.keyRelease(KeyEvent.VK_ENTER);
 
