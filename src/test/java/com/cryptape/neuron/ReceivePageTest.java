@@ -1,6 +1,7 @@
 package com.cryptape.neuron;
 
 import com.cryptape.neuron.framework.TestBase;
+import java.awt.AWTException;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.io.File;
@@ -26,12 +27,11 @@ public class ReceivePageTest extends TestBase {
     app.receivePage.keyCtrlV();
     app.receivePage.keyEnter();
 
-    Thread.sleep(1000);
+    Thread.sleep(3000);
     File file = new File(path, fileName);
     System.out.println(file.getPath());
     Assert.assertTrue(file.exists(), file.getPath() + "Receive image is not been saved!");
 
   }
-
 
 }

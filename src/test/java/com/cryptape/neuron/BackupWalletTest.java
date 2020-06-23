@@ -25,14 +25,16 @@ public class BackupWalletTest extends TestBase {
     app.settingPage.clickBackupWallet(0);
     app.settingPage.inputPasswordForBackup.sendKeys("Aa111111");
     app.settingPage.clickSaveButton();
+    Thread.sleep(3000);
 
+    // pop up system window
     StringSelection stringSelection = new StringSelection(backupFullPath);
     Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
     app.settingPage.driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 
     app.settingPage.keyCtrlV();
     app.settingPage.keyEnter();
-    Thread.sleep(1000);
+    Thread.sleep(3000);
 
     File file = new File(backupPath, backupName);
     System.out.println(file.getPath());

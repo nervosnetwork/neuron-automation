@@ -203,31 +203,12 @@ public class SettingPage extends PageBase {
     }
   }
 
-  public void clickBackupWalletFromContext() {
-    keyDown();
-    keyDown();
-    keyEnter();
-  }
-
-  public void clickEditWalletFromContext() {
-    keyDown();
-    keyDown();
-    keyDown();
-    keyEnter();
-  }
-
-  public void clickDeleteWalletFromContext() {
-    keyDown();
-    keyDown();
-    keyDown();
-    keyDown();
-    keyEnter();
-  }
-
-  public void clickEditNetworkFromContext() {
-    keyDown();
-    keyDown();
-    keyEnter();
+  public void clickDeleteNetwork(int index) {
+    try {
+      deleteNetworkBtnList.get(index).click();
+    } catch (Exception e) {
+      util.waitForElementLocated(this.driver, 10, deleteNetworkBtnList.get(index)).click();
+    }
   }
 
 }

@@ -103,15 +103,16 @@ public class ImportWalletTest extends TestBase {
     Thread.sleep(1000);
     app.createPage.inputWalletName.clear();
     app.createPage.inputWalletName.sendKeys(walletName);
+    app.createPage.inputPasswordForImportKeystore.clear();
     app.createPage.inputPasswordForImportKeystore.sendKeys(pwd);
     app.createPage.inputPathOfKeystore.click();
+    Thread.sleep(3000);
     StringSelection stringSelection = new StringSelection(keystorePath);
     Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
-    app.createPage.driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 
     app.createPage.keyCtrlV();
     app.createPage.keyEnter();
-    Thread.sleep(2000);
+    Thread.sleep(3000);
 
     app.createPage.clickSubmitBtn();
 
@@ -144,7 +145,7 @@ public class ImportWalletTest extends TestBase {
     app.createPage.driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
     app.settingPage.keyCtrlV();
     app.settingPage.keyEnter();
-    Thread.sleep(1000);
+    Thread.sleep(3000);
     app.createPage.clickSubmitBtn();
 
     // close the pop-up error window

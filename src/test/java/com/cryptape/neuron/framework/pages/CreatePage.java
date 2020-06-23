@@ -56,7 +56,11 @@ public class CreatePage extends PageBase {
   }
 
   public void clickSubmitBtn() {
-    submitBtn.click();
+    try {
+      submitBtn.click();
+    } catch (Exception e) {
+      util.waitForElementLocated(this.driver, 15, submitBtn).click();
+    }
   }
 
 
