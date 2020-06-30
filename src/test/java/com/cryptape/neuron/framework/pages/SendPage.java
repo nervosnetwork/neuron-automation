@@ -14,7 +14,7 @@ public class SendPage extends PageBase {
   @FindBy(xpath = "/html//navbar//button[@data-link='/send']")
   public WebElement navigateSend;
 
-  @FindBy(css = "div[class^='send_balance'] span[class^='css']")
+  @FindBy(css = "div[class^='send_balance'] span[class^='send_balanceValue']")
   public WebElement balance;
 
   @FindBy(css = "#address")
