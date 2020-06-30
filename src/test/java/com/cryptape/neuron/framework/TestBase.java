@@ -26,8 +26,8 @@ public class TestBase {
 
     if (app.OS.equals("mac os x")) {
 //        // kill existed ckb process before suite
-        runCommandViod("killall ckb");
-        runCommandViod("killall chromedriver");
+        runCommandVoid("killall ckb");
+        runCommandVoid("killall chromedriver");
 //        int findResult = runCommand("tasklist | findstr ckb");
 //        if (findResult == 0) {
 //        }
@@ -49,7 +49,7 @@ public class TestBase {
 
         // run ckb node
         String cmd2 = ckbPath + "/./ckb run -C " + nodePath;
-        runCommandViod(cmd2);
+        runCommandVoid(cmd2);
 
         Thread.sleep(5000);
         // miner for 12 blocks firstly
@@ -107,14 +107,14 @@ public class TestBase {
   @AfterSuite
   public void teardown() throws IOException {
 //    Runtime.getRuntime().exec("cmd /c taskkill /im ckb.exe -F");
-      runCommandViod("killall ckb");
+      runCommandVoid("killall ckb");
     app.stop();
   }
 
 
 
 
-    public void runCommandViod(String command) {
+    public void runCommandVoid(String command) {
         Runtime run = Runtime.getRuntime();
         try {
             run.exec(command);
