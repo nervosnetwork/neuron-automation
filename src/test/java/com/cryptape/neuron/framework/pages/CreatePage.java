@@ -54,11 +54,6 @@ public class CreatePage extends PageBase {
 
   public void clickCreateBtn() {
     createBtn.click();
-
-//      app.settingPage.navigateWalletName.click();
-//      app.settingPage.navigateToSettingPage();
-//      app.settingPage.clickWalletsTab();
-//      app.settingPage.clickCreateButton();
   }
 
   public void clickSubmitBtn() {
