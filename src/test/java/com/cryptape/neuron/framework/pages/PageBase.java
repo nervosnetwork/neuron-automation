@@ -127,12 +127,12 @@ public class PageBase extends TestBase {
 
     public void clickButtonCreateWallet() {
         if (app.createPage.util.isElementPresent(app.settingPage.createWalletBtn)) {
-            app.settingPage.navigateToSettingPage1();
+            app.settingPage.navigateToSettingPageByHandle(1);
             app.settingPage.clickWalletsTab();
             app.settingPage.clickCreateButton();
         }else if (app.createPage.util.isElementPresent(app.settingPage.navigateWalletName)) {
             app.settingPage.navigateWalletName.click();
-            app.settingPage.navigateToSettingPage1();
+            app.settingPage.navigateToSettingPageByHandle(1);
             app.settingPage.clickWalletsTab();
             app.settingPage.clickCreateButton();
         } else if (app.createPage.util.isElementPresent(app.createPage.createBtn)) {

@@ -114,27 +114,15 @@ public class SettingPage extends PageBase {
   }
 
 
-    public void navigateToSettingPage0() {
-        try {
-            backToMainWindow();
-            navigateWalletName.click();
-            Thread.sleep(3000);
-            Set winHandles = driver.getWindowHandles();
-            ArrayList windows = new ArrayList(winHandles);
-            driver.switchTo().window((String) windows.get(0));
-        } catch (Exception e) {
-            util.waitForElementLocated(this.driver, 30, navigateWalletName).click();
-        }
-    }
 
-    public void navigateToSettingPage1() {
+    public void navigateToSettingPageByHandle(int handle) {
         try {
             backToMainWindow();
             navigateWalletName.click();
             Thread.sleep(3000);
             Set winHandles = driver.getWindowHandles();
             ArrayList windows = new ArrayList(winHandles);
-            driver.switchTo().window((String) windows.get(1));
+            driver.switchTo().window((String) windows.get(handle));
         } catch (Exception e) {
             util.waitForElementLocated(this.driver, 30, navigateWalletName).click();
         }
