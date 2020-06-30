@@ -26,7 +26,7 @@ public class SendTest extends TestBase {
     boolean waitBalanceSynced = waitFor(new WaitUntil() {
       @Override
       public boolean waitUntil() {
-        if (!app.sendPage.balance.getText().equals("0 CKB")) {
+        if (!app.sendPage.balance.getText().equals("0")) {
           return true;
         }
         return false;
@@ -48,7 +48,7 @@ public class SendTest extends TestBase {
     app.sendPage.switchAdvancedTXfee();
 
     app.sendPage.expectedSpeed.click(); // click expected speed list
-    Assert.assertEquals(app.sendPage.speedDropdownList.size(), 4);
+    Assert.assertEquals(app.sendPage.speedDropdownList.size(), 3);
 
     app.sendPage.clickSubmitButton();
 
