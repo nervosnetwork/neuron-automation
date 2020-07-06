@@ -11,6 +11,9 @@ public class CreatePage extends PageBase {
   @FindBy(css = "span[class^='walletWizard_slogan']")
   public WebElement welcomeSlogan;
 
+  @FindBy(css = "button[data-type='primary']")
+  public WebElement dismissBtn;
+
   @FindBy(xpath = "//i[@data-icon-name='Create']")
   public WebElement createBtn;
 
@@ -60,6 +63,14 @@ public class CreatePage extends PageBase {
       submitBtn.click();
     } catch (Exception e) {
       util.waitForElementLocated(this.driver, 15, submitBtn).click();
+    }
+  }
+
+  public void clickDismissBtn() {
+    try {
+      dismissBtn.click();
+    } catch (Exception e) {
+      util.waitForElementLocated(this.driver, 15, dismissBtn).click();
     }
   }
 

@@ -63,6 +63,8 @@ public class TestBase {
     }
 
     app.init();
+    // Dismiss the pop-up window of indexer rebuild
+    app.createPage.clickDismissBtn();
   }
 
   @AfterSuite
