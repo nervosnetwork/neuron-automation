@@ -19,7 +19,7 @@ public class TestBase {
   public String longestWalletName = "Wallet Longest123456";
 
   @BeforeSuite
-  public void globalSetup() throws AWTException {
+  public void globalSetup() throws AWTException, InterruptedException {
 
     reporterLog();
 
@@ -30,7 +30,7 @@ public class TestBase {
     }
 
     // init ckb -f
-    String cmdInit = ckbPath + "ckb.exe init -c dev -C " + nodePath + " -f";
+    String cmdInit = ckbPath + "\\ckb.exe init -c dev -C " + nodePath + " -f";
     runCommand("\"" + cmdInit + "\"");
     // delete data folder
     String cmdDel = "rd/s/q " + (nodePath + "/data").replace("/", "\\");
@@ -47,11 +47,13 @@ public class TestBase {
     runCommand("\"" + cmdCopyDev + "\"");
 
     // run ckb node
-    String cmd2 = ckbPath + "ckb.exe run -C " + nodePath;
+    String cmd2 = ckbPath + "\\ckb.exe run -C " + nodePath;
     runCommand("start cmd.exe /K " + "\"" + cmd2 + "\"");
+    // wait for ckb node start up
+    Thread.sleep(3000);
 
     // miner for 12 blocks firstly
-    String cmdMiner = ckbPath + "ckb.exe miner -C " + nodePath + " --limit 12";
+    String cmdMiner = ckbPath + "\\ckb.exe miner -C " + nodePath + " --limit 12";
     int minerResult = runCommand("\"" + cmdMiner + "\"");
     if (minerResult != 0) {
       try {

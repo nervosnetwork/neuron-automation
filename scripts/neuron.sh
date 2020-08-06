@@ -1,9 +1,37 @@
 #!/usr/bin/env bash
 NEURON_VERSION=$(cat .neuron-version)
+CKB_VERSION=$(cat .ckb-version)
 NEURON_DIR=$(pwd)/resourcedownload
 NEURON_WIN_FILE_PATH=${NEURON_DIR}/Neuron-${NEURON_VERSION}-setup.exe
 NEURON_MAC_FILE_PATH=${NEURON_DIR}/Neuron-${NEURON_VERSION}.dmg
 NEURON_LINUX_FILE_PATH=${NEURON_DIR}/Neuron-${NEURON_VERSION}-x86_64.AppImage
+CKB_WIN_FILE_PATH=${NEURON_DIR}/ckb_${CKB_VERSION}_x86_64-pc-windows-msvc
+CKB_MAC_FILE_PATH=${NEURON_DIR}/ckb_${CKB_VERSION}_x86_64-apple-darwin
+CKB_LINUX_FILE_PATH=${NEURON_DIR}/ckb_${CKB_VERSION}_x86_64-unknown-linux-gnu
+
+function download_ckb_windows(){
+  echo "CKB_WIN_FILE_PATH: " ${CKB_WIN_FILE_PATH}
+  mkdir -p ${NEURON_DIR}
+  test -e ${CKB_WIN_FILE_PATH} && echo "CKB installation file already existed!" || curl -L -o ${CKB_WIN_FILE_PATH}.zip "https://github.com/nervosnetwork/ckb/releases/download/${CKB_VERSION}/ckb_${CKB_VERSION}_x86_64-pc-windows-msvc.zip"
+  unzip ${CKB_WIN_FILE_PATH}.zip
+  mv ${CKB_WIN_FILE_PATH} ckb
+}
+
+function download_ckb_mac(){
+  echo "CKB_MAC_FILE_PATH: " ${CKB_MAC_FILE_PATH}
+  mkdir -p ${NEURON_DIR}
+  test -e ${CKB_MAC_FILE_PATH} && echo "CKB installation file already existed!" || curl -L -o ${CKB_MAC_FILE_PATH}.zip "https://github.com/nervosnetwork/ckb/releases/download/${CKB_VERSION}/ckb_${CKB_VERSION}_x86_64-apple-darwin.zip"
+  unzip ${CKB_MAC_FILE_PATH}.zip
+  mv ${CKB_MAC_FILE_PATH} ckb
+}
+
+function download_ckb_linux(){
+  echo "CKB_LINUX_FILE_PATH: " ${CKB_LINUX_FILE_PATH}
+  mkdir -p ${NEURON_DIR}
+  test -e ${CKB_LINUX_FILE_PATH} && echo "CKB installation file already existed!" || curl -L -o ${CKB_LINUX_FILE_PATH}.tar.gz "https://github.com/nervosnetwork/ckb/releases/download/${CKB_VERSION}/ckb_${CKB_VERSION}_x86_64-unknown-linux-gnu.tar.gz"
+  tar -xzvf ${CKB_LINUX_FILE_PATH}.tar.gz
+  mv ${CKB_LINUX_FILE_PATH} ckb
+}
 
 function download_windows(){
   echo "NEURON_WIN_FILE_PATH: " ${NEURON_WIN_FILE_PATH}
@@ -11,7 +39,7 @@ function download_windows(){
   test -e ${NEURON_WIN_FILE_PATH} && echo "Installation file already existed!" || curl -L -o ${NEURON_WIN_FILE_PATH} "https://github.com/nervosnetwork/neuron/releases/download/${NEURON_VERSION}/Neuron-${NEURON_VERSION}-setup.exe"
 }
 
-function download_macos(){
+function download_mac(){
   echo "NEURON_MAC_FILE_PATH: " ${NEURON_MAC_FILE_PATH}
   mkdir -p ${NEURON_DIR}
   test -e ${NEURON_MAC_FILE_PATH} && echo "Installation file already existed!" || curl -L -o ${NEURON_MAC_FILE_PATH} "https://github.com/nervosnetwork/neuron/releases/download/${NEURON_VERSION}/Neuron-${NEURON_VERSION}.dmg"
@@ -39,7 +67,8 @@ usage(){
     echo "      Usage: $0 COMMAND [args...]"
     echo "      Default Commands: download | install_win | system-test | send-test"
     echo "      ---------------------------------------------"
-    echo "      download             download Neuron installation binary, under the resource download folder"
+    echo "      download             download Neuron installation binary, under the resourcedownload folder"
+    echo "      downloadckb          download ckb installation binary, under the resourcedownload folder"
     echo "      install_win          install Neuron from downloaded windows installation binary "
     echo "      system-test          run system test"
     echo "      send-test            run send test"
@@ -59,8 +88,19 @@ else
         download_windows
       fi
     ;;
+    downloadckb) if [[ "$OSTYPE" == "darwin"* ]]; then
+        download_ckb_mac
+      elif [[ "$OSTYPE" == "linux-gnu" ]]; then
+        download_ckb_linux
+      else
+        download_ckb_windows
+      fi
+    ;;
+    download_ckb_windows) download_ckb_windows;;
+    download_ckb_mac) download_ckb_mac;;
+    download_ckb_linux) download_ckb_linux;;
     download_windows) download_windows;;
-    download_macos) download_macos;;
+    download_mac) download_mac;;
     download_linux) download_linux;;
     install_win) install_win;;
     system-test) system-test;;
