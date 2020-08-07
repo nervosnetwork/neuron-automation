@@ -12,7 +12,7 @@ CKB_LINUX_FILE_PATH=${NEURON_DIR}/ckb_${CKB_VERSION}_x86_64-unknown-linux-gnu
 function download_ckb_windows(){
   echo "CKB_WIN_FILE_PATH: " ${CKB_WIN_FILE_PATH}
   mkdir -p ${NEURON_DIR}
-  test -e ${CKB_WIN_FILE_PATH} && echo "CKB installation file already existed!" || curl -L -o ${CKB_WIN_FILE_PATH}.zip "https://github.com/nervosnetwork/ckb/releases/download/${CKB_VERSION}/ckb_${CKB_VERSION}_x86_64-pc-windows-msvc.zip"
+  test -e ${CKB_WIN_FILE_PATH}.zip && echo "CKB installation file already existed!" || curl -L -o ${CKB_WIN_FILE_PATH}.zip "https://github.com/nervosnetwork/ckb/releases/download/${CKB_VERSION}/ckb_${CKB_VERSION}_x86_64-pc-windows-msvc.zip"
   unzip ${CKB_WIN_FILE_PATH}.zip
   mv ${CKB_WIN_FILE_PATH} ckb
 }
@@ -20,7 +20,7 @@ function download_ckb_windows(){
 function download_ckb_mac(){
   echo "CKB_MAC_FILE_PATH: " ${CKB_MAC_FILE_PATH}
   mkdir -p ${NEURON_DIR}
-  test -e ${CKB_MAC_FILE_PATH} && echo "CKB installation file already existed!" || curl -L -o ${CKB_MAC_FILE_PATH}.zip "https://github.com/nervosnetwork/ckb/releases/download/${CKB_VERSION}/ckb_${CKB_VERSION}_x86_64-apple-darwin.zip"
+  test -e ${CKB_MAC_FILE_PATH}.zip && echo "CKB installation file already existed!" || curl -L -o ${CKB_MAC_FILE_PATH}.zip "https://github.com/nervosnetwork/ckb/releases/download/${CKB_VERSION}/ckb_${CKB_VERSION}_x86_64-apple-darwin.zip"
   unzip ${CKB_MAC_FILE_PATH}.zip
   mv ${CKB_MAC_FILE_PATH} ckb
 }
@@ -28,7 +28,7 @@ function download_ckb_mac(){
 function download_ckb_linux(){
   echo "CKB_LINUX_FILE_PATH: " ${CKB_LINUX_FILE_PATH}
   mkdir -p ${NEURON_DIR}
-  test -e ${CKB_LINUX_FILE_PATH} && echo "CKB installation file already existed!" || curl -L -o ${CKB_LINUX_FILE_PATH}.tar.gz "https://github.com/nervosnetwork/ckb/releases/download/${CKB_VERSION}/ckb_${CKB_VERSION}_x86_64-unknown-linux-gnu.tar.gz"
+  test -e ${CKB_LINUX_FILE_PATH}.tar.gz && echo "CKB installation file already existed!" || curl -L -o ${CKB_LINUX_FILE_PATH}.tar.gz "https://github.com/nervosnetwork/ckb/releases/download/${CKB_VERSION}/ckb_${CKB_VERSION}_x86_64-unknown-linux-gnu.tar.gz"
   tar -xzvf ${CKB_LINUX_FILE_PATH}.tar.gz
   mv ${CKB_LINUX_FILE_PATH} ckb
 }
