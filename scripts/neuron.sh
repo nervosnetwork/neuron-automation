@@ -13,8 +13,12 @@ function download_ckb_windows(){
   echo "CKB_WIN_FILE_PATH: " ${CKB_WIN_FILE_PATH}
   mkdir -p ${NEURON_DIR}
   test -e ${CKB_WIN_FILE_PATH}.zip && echo "CKB installation file already existed!" || curl -L -o ${CKB_WIN_FILE_PATH}.zip "https://github.com/nervosnetwork/ckb/releases/download/${CKB_VERSION}/ckb_${CKB_VERSION}_x86_64-pc-windows-msvc.zip"
-  unzip ${CKB_WIN_FILE_PATH}.zip
-  mv ${CKB_WIN_FILE_PATH} ckb
+
+}
+
+function unzip_ckb_windows(){
+  test -e ${CKB_WIN_FILE_PATH}.zip && unzip -o ${CKB_WIN_FILE_PATH}.zip -d ${NEURON_DIR}|| echo "CKB installation file doesn't exist!"
+  test -e ${NEURON_DIR}/ckb && cp -rf ${CKB_WIN_FILE_PATH}/* ${NEURON_DIR}/ckb/ && rm -r ${CKB_WIN_FILE_PATH} || mv -f ${CKB_WIN_FILE_PATH} ${NEURON_DIR}/ckb
 }
 
 function download_ckb_mac(){
@@ -52,7 +56,7 @@ function download_linux() {
 }
 
 function install_win(){
-  cmd "/c start cmd.exe /K" %cd%\\scripts\\install_neuron_win.bat ${NEURON_VERSION}
+  cmd "/c start cmd.exe /c" %cd%\\scripts\\install_neuron_win.bat ${NEURON_VERSION}
 }
 
 function system-test(){
@@ -102,6 +106,7 @@ else
     download_windows) download_windows;;
     download_mac) download_mac;;
     download_linux) download_linux;;
+    unzip_ckb_windows) unzip_ckb_windows;;
     install_win) install_win;;
     system-test) system-test;;
     send-test) sendtx-test;;
