@@ -8,9 +8,9 @@
 
   <test verbose="2" name="Neuron UI Tests" preserve-order="true">
     <classes>
-      <class name="com.cryptape.neuron.ImportWalletTest">
+      <class name="com.cryptape.neuron.CreateWalletTest">
         <methods>
-          <include name="testImportKeystoreFromMenu"/>
+          <include name="testCreateNewWallet"/>
         </methods>
       </class>
       <class name="com.cryptape.neuron.SendTest"/>

@@ -2,13 +2,17 @@ package com.cryptape.neuron;
 
 import com.cryptape.neuron.framework.TestBase;
 import com.cryptape.neuron.framework.utils.WaitUntil;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.io.File;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class SendTest extends TestBase {
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.ImportWalletTest.testImportKeystoreFromMenu")
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
   public void testNormalTransfer() throws Exception {
+    importMinerKeystore();
     app.sendPage.navigateToSendPage();
 
     // wait for balance not to be 0
@@ -78,6 +82,35 @@ public class SendTest extends TestBase {
     }
     Assert.assertEquals(app.historyPage.transactionSummaryList.get(num).getAttribute("data-status"),
         "confirming");
+  }
+
+  void importMinerKeystore() throws InterruptedException {
+    String walletName = "importWalletKeystore";
+    String pwd = "Aa111111";
+    String keystorePath = new File(
+        System.getProperty("user.dir") + "/resource", "WalletMinerHenryKeystore.json")
+        .getAbsolutePath();
+
+    app.settingPage.navigateToSettingPage();
+    app.settingPage.clickWalletsTab();
+    app.settingPage.clickImportKeystoreButton();
+
+    Thread.sleep(1000);
+    app.createPage.inputWalletName.clear();
+    app.createPage.inputWalletName.sendKeys(walletName);
+    app.createPage.inputPasswordForImportKeystore.clear();
+    app.createPage.inputPasswordForImportKeystore.sendKeys(pwd);
+    app.createPage.inputPathOfKeystore.click();
+    Thread.sleep(3000);
+    StringSelection stringSelection = new StringSelection(keystorePath);
+    Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+
+    app.createPage.keyCtrlV();
+    app.createPage.keyEnter();
+    Thread.sleep(3000);
+
+    app.createPage.clickSubmitBtn();
+    app.settingPage.backToMainWindow();
   }
 
 }

@@ -94,8 +94,12 @@ public class SettingPage extends PageBase {
       backToMainWindow();
       navigateWalletName.click();
       Set winHandles = driver.getWindowHandles();
+      int size = winHandles.size();
       ArrayList windows = new ArrayList(winHandles);
-      driver.switchTo().window((String) windows.get(1));
+      for (int i = 0; i < size; i++) {
+        driver.switchTo().window((String) windows.get(i));
+        if (!driver.getTitle().equals("Neuron") && !driver.getTitle().isEmpty()) break;
+      }
       Thread.sleep(1000);
     } catch (Exception e) {
       util.waitForElementLocated(this.driver, 15, navigateWalletName).click();

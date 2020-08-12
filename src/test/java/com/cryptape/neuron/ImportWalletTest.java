@@ -91,15 +91,19 @@ public class ImportWalletTest extends TestBase {
   }
 
 
-  @Test
-  public void testImportKeystoreFromMenu() throws InterruptedException {
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  public void testImportKeystoreFromSetting() throws InterruptedException {
     String walletName = "importWalletKeystore";
     String pwd = "Aa111111";
     String keystorePath = new File(
         System.getProperty("user.dir") + "/resource", "WalletMinerHenryKeystore.json")
         .getAbsolutePath();
 
-    app.createPage.clickMenuImportKeystore();
+//    app.createPage.clickMenuImportKeystore();
+    app.settingPage.navigateToSettingPage();
+    app.settingPage.clickWalletsTab();
+    app.settingPage.clickImportKeystoreButton();
+
     Thread.sleep(1000);
     app.createPage.inputWalletName.clear();
     app.createPage.inputWalletName.sendKeys(walletName);
@@ -115,9 +119,9 @@ public class ImportWalletTest extends TestBase {
     Thread.sleep(3000);
 
     app.createPage.clickSubmitBtn();
-
+    app.settingPage.backToMainWindow();
     String navigateWalletName = app.createPage.util
-        .waitForElementLocated(app.createPage.driver, 30, app.createPage.navigateWalletName)
+        .waitForElementLocated(app.createPage.driver, 15, app.createPage.navigateWalletName)
         .getText();
     Assert.assertEquals(navigateWalletName, walletName);
 
@@ -183,7 +187,7 @@ public class ImportWalletTest extends TestBase {
 
     app.settingPage.backToMainWindow();
     String navigateWalletName = app.createPage.util
-        .waitForElementLocated(app.createPage.driver, 30, app.createPage.navigateWalletName)
+        .waitForElementLocated(app.createPage.driver, 15, app.createPage.navigateWalletName)
         .getText();
     Assert.assertEquals(navigateWalletName, walletName);
   }
