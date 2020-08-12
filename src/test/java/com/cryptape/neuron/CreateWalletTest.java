@@ -11,7 +11,7 @@ public class CreateWalletTest extends TestBase {
   @Test
   public void testCreateNewWallet() {
 
-    System.out.println("Welcome slogan: "+ app.createPage.welcomeSlogan.getText());
+    System.out.println("Welcome slogan: " + app.createPage.welcomeSlogan.getText());
 
     String walletName = "钱包Test1";
     String pwd = "Aa111111";
@@ -22,9 +22,11 @@ public class CreateWalletTest extends TestBase {
 
   }
 
-  @Test
-  public void testCreateWithLongestNamePWDPositive(){
-    app.createPage.clickMenuCreateWallet();
+  @Test(dependsOnMethods = "testCreateNewWallet")
+  public void testCreateWithLongestNamePWDPositive() {
+//    app.createPage.clickMenuCreateWallet();
+    clickCreateButtonFromSetting();
+
     String mnemonic = app.createPage.generateMnemonic.getText();
     System.out.println("generated mnemonic: " + mnemonic);
     app.createPage.nextBtn.click();
@@ -38,13 +40,16 @@ public class CreateWalletTest extends TestBase {
     app.createPage.inputConfirmPassword.sendKeys(longestPWD);
     // click Next
     app.createPage.nextBtn.click();
+    app.settingPage.backToMainWindow();
     Assert.assertEquals(app.createPage.navigateWalletName.getText(), longestWalletName);
   }
 
-  @Test
+  @Test(dependsOnMethods = "testCreateNewWallet")
   public void testCannotCreateWithWrongMnemonicNegative() {
     String assumeMnemonic = "undo table grace achieve relief shadow express six magnet purity release awkward";
-    app.createPage.clickMenuCreateWallet();
+    //    app.createPage.clickMenuCreateWallet();
+    clickCreateButtonFromSetting();
+
     String mnemonic = app.createPage.generateMnemonic.getText();
     System.out.println("generated mnemonic: " + mnemonic);
     app.createPage.nextBtn.click();
@@ -61,13 +66,15 @@ public class CreateWalletTest extends TestBase {
     app.createPage.backBtn.click();
   }
 
-  @Test
+  @Test(dependsOnMethods = "testCreateNewWallet")
   public void testCannotCreateWithDiffPWDNegative() {
     String pwd = "Aa111111";
     String confirmPWD = "Aa123456";
     // wallet name with longest length of 20
     String walletName = "Wallet AutoTest12345";
-    app.createPage.clickMenuCreateWallet();
+    //    app.createPage.clickMenuCreateWallet();
+    clickCreateButtonFromSetting();
+
     String mnemonic = app.createPage.generateMnemonic.getText();
     System.out.println("generated mnemonic: " + mnemonic);
     app.createPage.nextBtn.click();
@@ -85,13 +92,15 @@ public class CreateWalletTest extends TestBase {
     backToHomePage();
   }
 
-  @Test
+  @Test(dependsOnMethods = "testCreateNewWallet")
   public void testCannotCreateWithLongerPWDNegative() {
     // password of 53 length that longer than 50
     String veryLongPWD = "_1234567890abcdefg~!@#$%^&*()_+QWERTYUIOP[] ASDFGH123";
     // wallet name with longest length of 20
     String walletName = "Wallet AutoTest12345";
-    app.createPage.clickMenuCreateWallet();
+    //    app.createPage.clickMenuCreateWallet();
+    clickCreateButtonFromSetting();
+
     String mnemonic = app.createPage.generateMnemonic.getText();
     System.out.println("generated mnemonic: " + mnemonic);
     app.createPage.nextBtn.click();
@@ -109,13 +118,15 @@ public class CreateWalletTest extends TestBase {
     backToHomePage();
   }
 
-  @Test
+  @Test(dependsOnMethods = "testCreateNewWallet")
   public void testCannotCreateWithShortPWDNegative() {
     // password of 7 length which shorter than required of 8 length
     String veryLongPWD = "Aa12345";
     // wallet name with longest length of 20
     String walletName = "Wallet AutoTestShort";
-    app.createPage.clickMenuCreateWallet();
+    //    app.createPage.clickMenuCreateWallet();
+    clickCreateButtonFromSetting();
+
     String mnemonic = app.createPage.generateMnemonic.getText();
     System.out.println("generated mnemonic: " + mnemonic);
     app.createPage.nextBtn.click();
@@ -133,13 +144,15 @@ public class CreateWalletTest extends TestBase {
     backToHomePage();
   }
 
-  @Test
+  @Test(dependsOnMethods = "testCreateNewWallet")
   public void testCannotCreateWithInvalidPWDNegative() {
     // password with only two kinds of character categories
     String invalidPWD = "_1234567890";
     // wallet name with longest length of 20
     String walletName = "Wallet AutoTest";
-    app.createPage.clickMenuCreateWallet();
+    //    app.createPage.clickMenuCreateWallet();
+    clickCreateButtonFromSetting();
+
     String mnemonic = app.createPage.generateMnemonic.getText();
     System.out.println("generated mnemonic: " + mnemonic);
     app.createPage.nextBtn.click();
@@ -173,5 +186,10 @@ public class CreateWalletTest extends TestBase {
     app.createPage.backBtn.click();
   }
 
+  public void clickCreateButtonFromSetting() {
+    app.settingPage.navigateToSettingPage();
+    app.settingPage.clickWalletsTab();
+    app.settingPage.clickCreateButton();
+  }
 
 }

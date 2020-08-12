@@ -98,14 +98,14 @@ public class SettingPage extends PageBase {
       driver.switchTo().window((String) windows.get(1));
       Thread.sleep(1000);
     } catch (Exception e) {
-      util.waitForElementLocated(this.driver, 30, navigateWalletName).click();
+      util.waitForElementLocated(this.driver, 15, navigateWalletName).click();
     }
   }
 
   public void backToMainWindow() {
     try {
       Set winHandles = driver.getWindowHandles();
-      if (winHandles.size() > 1) {
+      if (winHandles.size() >= 1) {
         ArrayList windows = new ArrayList(winHandles);
         driver.switchTo().window((String) windows.get(0));
         Thread.sleep(1000);
@@ -119,7 +119,7 @@ public class SettingPage extends PageBase {
     try {
       walletsTab.click();
     } catch (Exception e) {
-      util.waitForElementLocated(this.driver, 30, walletsTab).click();
+      util.waitForElementLocated(this.driver, 15, walletsTab).click();
     }
   }
 
@@ -136,7 +136,11 @@ public class SettingPage extends PageBase {
   }
 
   public void clickCreateButton() {
-    createWalletBtn.click();
+    try {
+      createWalletBtn.click();
+    } catch (Exception e) {
+      util.waitForElementLocated(this.driver, 15, createWalletBtn).click();
+    }
   }
 
   public void clickImportMnemonicButton() {
@@ -155,7 +159,7 @@ public class SettingPage extends PageBase {
     try {
       return networkNameList.get(index).getText();
     } catch (Exception e) {
-      return util.waitForElementLocated(this.driver, 30, networkNameList.get(index)).getText();
+      return util.waitForElementLocated(this.driver, 15, networkNameList.get(index)).getText();
     }
   }
 
@@ -163,7 +167,7 @@ public class SettingPage extends PageBase {
     try {
       return networkURLList.get(index).getText();
     } catch (Exception e) {
-      return util.waitForElementLocated(this.driver, 30, networkURLList.get(index)).getText();
+      return util.waitForElementLocated(this.driver, 15, networkURLList.get(index)).getText();
     }
   }
 
@@ -175,7 +179,7 @@ public class SettingPage extends PageBase {
     try {
       editWalletBtnList.get(index).click();
     } catch (Exception e) {
-      util.waitForElementLocated(this.driver, 30, editWalletBtnList.get(index)).click();
+      util.waitForElementLocated(this.driver, 15, editWalletBtnList.get(index)).click();
     }
   }
 
@@ -183,7 +187,7 @@ public class SettingPage extends PageBase {
     try {
       deleteWalletBtnList.get(index).click();
     } catch (Exception e) {
-      util.waitForElementLocated(this.driver, 30, deleteWalletBtnList.get(index)).click();
+      util.waitForElementLocated(this.driver, 15, deleteWalletBtnList.get(index)).click();
     }
   }
 
@@ -191,7 +195,7 @@ public class SettingPage extends PageBase {
     try {
       backupWalletBtnList.get(index).click();
     } catch (Exception e) {
-      util.waitForElementLocated(this.driver, 30, backupWalletBtnList.get(index)).click();
+      util.waitForElementLocated(this.driver, 15, backupWalletBtnList.get(index)).click();
     }
   }
 
@@ -199,7 +203,7 @@ public class SettingPage extends PageBase {
     try {
       editNetworkBtnList.get(index).click();
     } catch (Exception e) {
-      util.waitForElementLocated(this.driver, 30, editNetworkBtnList.get(index)).click();
+      util.waitForElementLocated(this.driver, 15, editNetworkBtnList.get(index)).click();
     }
   }
 
