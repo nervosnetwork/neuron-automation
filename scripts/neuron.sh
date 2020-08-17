@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-NEURON_VERSION=$(cat .neuron-version)
+NEURON_VERSION=$(curl -s  https://api.github.com/repos/nervosnetwork/neuron/releases/latest | grep "tag_name" | awk -F '"' '{print $4}')
 CKB_VERSION=$(cat .ckb-version)
 NEURON_DIR=$(pwd)/resourcedownload
 NEURON_WIN_FILE_PATH=${NEURON_DIR}/Neuron-${NEURON_VERSION}-setup.exe
