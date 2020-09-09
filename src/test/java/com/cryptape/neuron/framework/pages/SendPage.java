@@ -90,7 +90,11 @@ public class SendPage extends PageBase {
   }
 
   public void clickSubmitButton() {
-    submitBtn.click();
+    try {
+      submitBtn.click();
+    } catch (Exception e) {
+      util.waitForElementLocated(this.driver, 30, submitBtn).click();
+    }
   }
 
 }
