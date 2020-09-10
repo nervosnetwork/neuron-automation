@@ -110,6 +110,11 @@ public class SettingPage extends PageBase {
     try {
       Set winHandles = driver.getWindowHandles();
       if (winHandles.size() >= 1) {
+        driver.getWindowHandle();
+        if (!driver.getTitle().equals("Neuron") && !driver.getTitle().isEmpty()) {
+          driver.close();
+        }
+
         ArrayList windows = new ArrayList(winHandles);
         driver.switchTo().window((String) windows.get(0));
         Thread.sleep(1000);
