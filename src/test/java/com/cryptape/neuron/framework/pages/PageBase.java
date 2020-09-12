@@ -37,7 +37,11 @@ public class PageBase {
 
   // click submit button on password request window
   public void clickPWDSubmit() {
-    pwdSubmitBtn.click();
+    try {
+      pwdSubmitBtn.click();
+    } catch (Exception e) {
+      util.waitForElementLocated(this.driver, 30, pwdSubmitBtn).click();
+    }
   }
 
   public void keyDown() {
@@ -106,7 +110,7 @@ public class PageBase {
     actions.doubleClick(webElement).build().perform();
   }
 
-  public void mouseover(ChromeDriver driver, WebElement webElement){
+  public void mouseover(ChromeDriver driver, WebElement webElement) {
     Actions action = new Actions(driver);
     action.moveToElement(webElement).perform();
   }
