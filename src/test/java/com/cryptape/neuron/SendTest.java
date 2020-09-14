@@ -13,6 +13,11 @@ public class SendTest extends TestBase {
   @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
   public void testNormalTransfer() throws Exception {
     importMinerKeystore();
+
+    app.historyPage.navigateToHistoryPage();
+    waitForHistoryListUpdate(0);
+    int txInitSize = app.historyPage.transactionSummaryList.size();
+
     app.sendPage.navigateToSendPage();
 
     // wait for balance not to be 0
@@ -50,18 +55,22 @@ public class SendTest extends TestBase {
     app.sendPage.inputPWD.sendKeys("Aa111111");
     app.sendPage.clickPWDSubmit();
 
+    waitForHistoryListUpdate(txInitSize);
+
     String txHash = app.historyPage.transactionSummaryList.get(0).getAttribute("data-hash");
+    System.out.println("committed tx hash should be: " + txHash);
     Assert.assertEquals(app.historyPage.transactionSummaryList.get(0).getAttribute("data-status"),
         "pending");
 
     String cmdMiner = ckbPath + "ckb.exe miner -C " + nodePath + " --limit 5";
     runCommand("\"" + cmdMiner + "\"");
 
+    int num = getTXseqNum(txHash);
     // wait for tx to be committed
     boolean waitTXCommitted = waitFor(new WaitUntil() {
       @Override
       public boolean waitUntil() {
-        if (!app.historyPage.transactionSummaryList.get(0).getAttribute("data-status")
+        if (!app.historyPage.transactionSummaryList.get(num).getAttribute("data-status")
             .equals("pending")) {
           return true;
         }
@@ -73,15 +82,13 @@ public class SendTest extends TestBase {
       throw new Exception("timeout to wait for tx to be committed!");
     }
 
-    int num = 0;
-    for (int i = 0; i < app.historyPage.transactionSummaryList.size(); i++) {
-      if (app.historyPage.transactionSummaryList.get(i).getAttribute("data-hash").equals(txHash)) {
-        num = i;
-        break;
-      }
-    }
-    Assert.assertEquals(app.historyPage.transactionSummaryList.get(num).getAttribute("data-status"),
+    int latestNum = getTXseqNum(txHash);
+    Assert.assertEquals(
+        app.historyPage.transactionSummaryList.get(latestNum).getAttribute("data-status"),
         "confirming");
+
+    // Click to unfold the tx
+    app.historyPage.transactionSummaryList.get(latestNum).click();
   }
 
   void importMinerKeystore() throws InterruptedException {
@@ -111,6 +118,30 @@ public class SendTest extends TestBase {
 
     app.createPage.clickSubmitBtn();
     app.settingPage.backToMainWindow();
+  }
+
+  void waitForHistoryListUpdate(int compareSize) {
+    waitFor(new WaitUntil() {
+      @Override
+      public boolean waitUntil() {
+        if (app.historyPage.transactionSummaryList.size() > compareSize) {
+          return true;
+        }
+        return false;
+      }
+    }, 20, 1);
+  }
+
+  int getTXseqNum(String findTxHash) {
+    int num = 0;
+    for (int i = 0; i < app.historyPage.transactionSummaryList.size(); i++) {
+      if (app.historyPage.transactionSummaryList.get(i).getAttribute("data-hash")
+          .equals(findTxHash)) {
+        num = i;
+        break;
+      }
+    }
+    return num;
   }
 
 }

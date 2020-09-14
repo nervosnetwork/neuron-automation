@@ -56,6 +56,7 @@ function download_linux() {
 }
 
 function install_win(){
+  echo "On Win OS install Neuron " ${NEURON_VERSION}
   cmd "/c start cmd.exe /c" %cd%\\scripts\\install_neuron_win.bat ${NEURON_VERSION}
 }
 
