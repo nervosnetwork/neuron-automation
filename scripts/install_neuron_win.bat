@@ -11,3 +11,4 @@ ECHO .
 ) else (
 ECHO Installation package not available.
 )
+ping 127.1 -n 11 >nul
