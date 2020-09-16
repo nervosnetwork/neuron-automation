@@ -76,7 +76,6 @@ public class TestBase {
   @AfterSuite
   public void teardown() throws IOException {
     Runtime.getRuntime().exec("cmd /c taskkill /im ckb.exe -F");
-    Runtime.getRuntime().exec("cmd /c taskkill /im chromedriver.exe -F");
     app.stop();
   }
 
