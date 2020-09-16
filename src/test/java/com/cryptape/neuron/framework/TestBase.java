@@ -24,9 +24,13 @@ public class TestBase {
     reporterLog();
 
     // kill existed ckb process before suite
-    int findResult = runCommand("tasklist | findstr ckb");
-    if (findResult == 0) {
+    int findCKBResult = runCommand("tasklist | findstr ckb");
+    if (findCKBResult == 0) {
       runCommand("taskkill /im ckb.exe -F");
+    }
+    int findChromeDriverResult = runCommand("tasklist | findstr chromedriver");
+    if (findChromeDriverResult == 0) {
+      runCommand("taskkill /im chromedriver.exe -F");
     }
 
     // init ckb -f
@@ -72,6 +76,7 @@ public class TestBase {
   @AfterSuite
   public void teardown() throws IOException {
     Runtime.getRuntime().exec("cmd /c taskkill /im ckb.exe -F");
+    Runtime.getRuntime().exec("cmd /c taskkill /im chromedriver.exe -F");
     app.stop();
   }
 
