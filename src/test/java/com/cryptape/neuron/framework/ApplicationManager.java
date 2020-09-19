@@ -35,7 +35,7 @@ public class ApplicationManager {
   public void init() throws AWTException, InterruptedException {
 
     // sleep before start up for CI
-    Thread.sleep(10000);
+    Thread.sleep(30000);
 
     options.setBinary(System.getenv("LOCALAPPDATA") + "/Programs/Neuron/Neuron.exe");
     System.setProperty("webdriver.chrome.driver", getYMLValue("chromedriverPath"));
