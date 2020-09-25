@@ -6,11 +6,23 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.io.File;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class SendTest extends TestBase {
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
+  String language;
+  int times = 0;
+
+  @BeforeClass
+  void getLanguage() {
+    app.settingPage.navigateToSettingPage();
+    app.settingPage.clickGeneralTab();
+    language = System.getProperty("user.language");
+    System.out.println("language is: " + language);
+  }
+
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
   public void testNormalTransfer() throws Exception {
     importMinerKeystore();
 
@@ -21,19 +33,7 @@ public class SendTest extends TestBase {
     app.sendPage.navigateToSendPage();
 
     // wait for balance not to be 0
-    boolean waitBalanceSynced = waitFor(new WaitUntil() {
-      @Override
-      public boolean waitUntil() {
-        if (!app.sendPage.balance.getText().equals("0")) {
-          return true;
-        }
-        return false;
-      }
-    }, 20, 1);
-
-    if (!waitBalanceSynced) {
-      throw new Exception("timeout to wait for balance with non-zero.");
-    }
+    waitForBalanceNotZero();
 
     System.out.println("balance is: " + app.sendPage.balance.getText());
     app.sendPage.inputAddress.clear();
@@ -91,8 +91,189 @@ public class SendTest extends TestBase {
     app.historyPage.transactionSummaryList.get(latestNum).click();
   }
 
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  public void testInvalidFormatAddr() throws Exception {
+    importMinerKeystore();
+    app.historyPage.navigateToHistoryPage();
+    app.sendPage.navigateToSendPage();
+    app.sendPage.inputAddress.clear();
+    app.sendPage.inputAmount.clear();
+    // try to input BTC format address
+    app.sendPage.inputAddress.sendKeys("1JqAmANfWttS1eyJ7DDnNuTd7zqBoyTf47");
+    String addressErrorMsg = app.sendPage.addressErrorMsg.getText();
+    verifyAddressErrorMsg(addressErrorMsg,
+        "请输入测试网地址",
+        "Please enter a testnet address");
+  }
+
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  public void testInvalidChainAddr() throws Exception {
+    importMinerKeystore();
+    app.historyPage.navigateToHistoryPage();
+    app.sendPage.navigateToSendPage();
+    app.sendPage.inputAddress.clear();
+    app.sendPage.inputAmount.clear();
+    // try to input mainnet address when connecting to testnet chain
+    app.sendPage.inputAddress.sendKeys("ckb1qyqgsqsd549m333prhzyvdvedluuuas9u2ssxkmf53");
+    String addressErrorMsg = app.sendPage.addressErrorMsg.getText();
+    verifyAddressErrorMsg(addressErrorMsg,
+        "请输入测试网地址",
+        "Please enter a testnet address");
+  }
+
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  public void testAddandRemoveButton() throws Exception {
+    importMinerKeystore();
+
+    app.historyPage.navigateToHistoryPage();
+    waitForHistoryListUpdate(0);
+
+    app.sendPage.navigateToSendPage();
+
+    // wait for balance not to be 0
+    waitForBalanceNotZero();
+
+    System.out.println("balance is: " + app.sendPage.balance.getText());
+    app.sendPage.inputAddress.clear();
+    app.sendPage.inputAmount.clear();
+    app.sendPage.inputAddress.sendKeys("ckt1qyqffstjpl0lnrguqyqvlv884epwgu94xqvsp42s9l");
+    app.sendPage.inputAmount.sendKeys("100");
+    Assert.assertEquals(app.sendPage.addBtnList.size(), 1);
+    Assert.assertTrue(app.sendPage.removeBtnList.isEmpty(),
+        "there should be no remove button when there's only one receive address");
+
+    app.sendPage.clickAddButton(0);
+    Assert.assertEquals(app.sendPage.addBtnList.size(), 1);
+    Assert.assertEquals(app.sendPage.removeBtnList.size(), 2);
+
+    app.sendPage.clickRemoveButton(1);
+    Assert.assertEquals(app.sendPage.addBtnList.size(), 1);
+    Assert.assertTrue(app.sendPage.removeBtnList.isEmpty(),
+        "there should be no remove button when there's only one receive address");
+  }
+
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  public void testMaxButton() throws Exception {
+    importMinerKeystore();
+
+    app.historyPage.navigateToHistoryPage();
+    waitForHistoryListUpdate(0);
+
+    app.sendPage.navigateToSendPage();
+
+    // wait for balance not to be 0
+    waitForBalanceNotZero();
+
+    System.out.println("balance is: " + app.sendPage.balance.getText());
+    app.sendPage.inputAddress.clear();
+    app.sendPage.inputAmount.clear();
+    app.sendPage.inputAddress.sendKeys("ckt1qyqffstjpl0lnrguqyqvlv884epwgu94xqvsp42s9l");
+    app.sendPage.inputAmount.sendKeys("100");
+    Assert.assertTrue(app.sendPage.maxBtn.isEnabled());
+    app.sendPage.clickMaxButton();
+    Assert.assertEquals(app.sendPage.maxBtn.getAttribute("data-is-on"), "true",
+        "on the first click the Max button it should be gray");
+    Assert.assertFalse(app.sendPage.inputAmount.isEnabled(),
+        "on the first click the Max button the amount field should not be able to edit");
+
+    app.sendPage.clickMaxButton();
+    Assert.assertEquals(app.sendPage.maxBtn.getAttribute("data-is-on"), "false",
+        "when second click the Max button it should not be gray");
+    Assert.assertTrue(app.sendPage.inputAmount.isEnabled());
+    Assert.assertTrue(app.sendPage.inputAmount.getText().isEmpty(),
+        "when second click the Max button the amount field should be empty");
+  }
+
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  public void testMultiSigShortAddrTransfer() throws Exception {
+    importMinerKeystore();
+
+    app.historyPage.navigateToHistoryPage();
+    waitForHistoryListUpdate(0);
+    app.sendPage.navigateToSendPage();
+
+    // wait for balance not to be 0
+    waitForBalanceNotZero();
+
+    System.out.println("balance is: " + app.sendPage.balance.getText());
+    app.sendPage.inputAddress.clear();
+    app.sendPage.inputAmount.clear();
+    app.sendPage.inputAddress.sendKeys("ckt1qyq4vw6jaxf90wlfulhem46q8fkglxtscr9q80gzug");
+    String addressErrorMsg = app.sendPage.addressErrorMsg.getText();
+    verifyAddressErrorMsg(addressErrorMsg,
+        "地址 ckt1qyq4vw6jaxf90wlfulhem46q8fkglxtscr9q80gzug 无效。",
+        "Address ckt1qyq4vw6jaxf90wlfulhem46q8fkglxtscr9q80gzug is invalid.");
+  }
+
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  public void testLockTimeNotAvailableForTypeFullAddrTransfer() throws Exception {
+    importMinerKeystore();
+
+    app.historyPage.navigateToHistoryPage();
+    waitForHistoryListUpdate(0);
+    app.sendPage.navigateToSendPage();
+
+    // wait for balance not to be 0
+    waitForBalanceNotZero();
+
+    System.out.println("balance is: " + app.sendPage.balance.getText());
+    app.sendPage.inputAddress.clear();
+    app.sendPage.inputAmount.clear();
+    app.sendPage.inputAddress.sendKeys(
+        "ckt1qjda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xw39xpwg8al7vdrsqspnasu7hy9ersk5cpj33ej9w");
+    Assert.assertTrue(app.sendPage.setLockTimeList.isEmpty(),
+        "set Locktime is not available for type long address");
+  }
+
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  public void testLockTimeNotAvailableForDataFullAddrTransfer() throws Exception {
+    importMinerKeystore();
+
+    app.historyPage.navigateToHistoryPage();
+    waitForHistoryListUpdate(0);
+    app.sendPage.navigateToSendPage();
+
+    // wait for balance not to be 0
+    waitForBalanceNotZero();
+
+    System.out.println("balance is: " + app.sendPage.balance.getText());
+    app.sendPage.inputAddress.clear();
+    app.sendPage.inputAmount.clear();
+    app.sendPage.inputAddress.sendKeys(
+        "ckt1qfcf7076zt6krnavly3883t6nrlduxy28ud9nv0c3rg387wvuzryn9xpwg8al7vdrsqspnasu7hy9ersk5cpjqgrsfr");
+    Assert.assertTrue(app.sendPage.setLockTimeList.isEmpty(),
+        "set Locktime is not available for data long address");
+  }
+
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  public void testLockTimeOnlyAvailableForBlake160ShortAddrTransfer() throws Exception {
+    importMinerKeystore();
+
+    app.historyPage.navigateToHistoryPage();
+    waitForHistoryListUpdate(0);
+    app.sendPage.navigateToSendPage();
+
+    // wait for balance not to be 0
+    waitForBalanceNotZero();
+
+    System.out.println("balance is: " + app.sendPage.balance.getText());
+    app.sendPage.inputAddress.clear();
+    app.sendPage.inputAmount.clear();
+    app.sendPage.inputAddress.sendKeys(
+        "ckt1qyqffstjpl0lnrguqyqvlv884epwgu94xqvsp42s9l");
+    Assert.assertTrue(app.sendPage.util.isElementPresent(app.sendPage.setLockTimeList.get(0)),
+        "Set Locktime is available for Blake160 short address");
+
+    app.sendPage.inputAddress.clear();
+    app.sendPage.inputAddress.sendKeys(
+        "ckt1qfcf7076zt6krnavly3883t6nrlduxy28ud9nv0c3rg387wvuzryn9xpwg8al7vdrsqspnasu7hy9ersk5cpjqgrsfr");
+    Assert.assertTrue(app.sendPage.setLockTimeList.isEmpty(),
+        "Set Locktime is not available for other address type");
+  }
+
+
   void importMinerKeystore() throws InterruptedException {
-    String walletName = "importWalletKeystore";
+    StringBuffer walletName = new StringBuffer("importKeystore");
     String pwd = "Aa111111";
     String keystorePath = new File(
         System.getProperty("user.dir") + "/resource", "WalletMinerHenryKeystore.json")
@@ -104,7 +285,8 @@ public class SendTest extends TestBase {
 
     Thread.sleep(1000);
     app.createPage.inputWalletName.clear();
-    app.createPage.inputWalletName.sendKeys(walletName);
+    app.createPage.inputWalletName.sendKeys(walletName.append(times));
+    times = times + 1;
     app.createPage.inputPasswordForImportKeystore.clear();
     app.createPage.inputPasswordForImportKeystore.sendKeys(pwd);
     app.createPage.inputPathOfKeystore.click();
@@ -135,13 +317,44 @@ public class SendTest extends TestBase {
   int getTXseqNum(String findTxHash) {
     int num = 0;
     for (int i = 0; i < app.historyPage.transactionSummaryList.size(); i++) {
-      if (app.historyPage.transactionSummaryList.get(i).getAttribute("data-hash")
-          .equals(findTxHash)) {
+      if (findTxHash
+          .equals(app.historyPage.transactionSummaryList.get(i).getAttribute("data-hash"))) {
         num = i;
         break;
       }
     }
     return num;
+  }
+
+  void waitForBalanceNotZero() throws Exception {
+    boolean waitBalanceSynced = waitFor(new WaitUntil() {
+      @Override
+      public boolean waitUntil() {
+        if (!"0".equals(app.sendPage.balance.getText())) {
+          return true;
+        }
+        return false;
+      }
+    }, 20, 1);
+
+    if (!waitBalanceSynced) {
+      throw new Exception("timeout to wait for balance with non-zero.");
+    }
+  }
+
+  /**
+   * @param addressErrorMsg: the actual error message
+   * @param zhMsg: the expected error message in Chinese
+   * @param enMsg: the expected error message in English
+   * @description verify the error message for invalid address
+   */
+  void verifyAddressErrorMsg(String addressErrorMsg, String zhMsg, String enMsg) {
+
+    if ("zh".equals(language)) {
+      Assert.assertEquals(addressErrorMsg, zhMsg);
+    } else if ("en".equals(language)) {
+      Assert.assertEquals(addressErrorMsg, enMsg);
+    }
   }
 
 }

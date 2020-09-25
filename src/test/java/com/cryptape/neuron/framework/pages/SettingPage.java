@@ -26,6 +26,10 @@ public class SettingPage extends PageBase {
   @FindBy(css = "span[class='label third']")
   public List<WebElement> networkTagList;
 
+  // GeneralTab
+  @FindBy(css = "span[class^='ms-Dropdown-title']")
+  public WebElement language;
+
   // WalletsTab
   @FindBy(css = "button[arial-label='create a wallet']")
   public WebElement createWalletBtn;
@@ -121,6 +125,14 @@ public class SettingPage extends PageBase {
       }
     } catch (InterruptedException e) {
       e.printStackTrace();
+    }
+  }
+
+  public void clickGeneralTab() {
+    try {
+      generalTab.click();
+    } catch (Exception e) {
+      util.waitForElementLocated(this.driver, 15, generalTab).click();
     }
   }
 
