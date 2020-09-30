@@ -45,7 +45,8 @@ public class SendPage extends PageBase {
 
   @FindBy(css = "div[class*='sendFieldset_addressField'] span[class^='textField_errorMessage']")
   public WebElement addressErrorMsg;
-
+  @FindBy(css = "div[class^='sendFieldset_fullAddrInfo'] span")
+  public WebElement fullAddressErrorMsg;
 
   public SendPage(ChromeDriver driver) throws AWTException {
     super(driver);

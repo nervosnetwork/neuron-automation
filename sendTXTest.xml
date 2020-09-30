@@ -10,7 +10,7 @@
     <classes>
       <class name="com.cryptape.neuron.CreateWalletTest">
         <methods>
-          <include name="testCreateNewWallet"/>
+          <include name="testCreateNewWalletFromMenu"/>
         </methods>
       </class>
       <class name="com.cryptape.neuron.SendTest"/>
