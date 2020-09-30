@@ -15,12 +15,10 @@ Before running test, please make sure to fulfill the `ckbPath` and `nodePath` in
 Run system/send transaction tests:
 ```$xslt
 make system-test # running regression tests.
-make send-test # run the sending transaction related tests only.
 ```
 or:
 ```$xslt
 scripts\neuron.sh system-test # running regression tests.
-scripts\neuron.sh send-test # run the sending transaction related tests only.
 ```
 
 ## Coding Style
