@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 
 public class ImportWalletTest extends TestBase {
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testImportMnemonicFromSetting() {
 
     String importMnemonic = "crew assume asset trip trim violin exhaust used bird slow universe jealous";
@@ -44,7 +44,7 @@ public class ImportWalletTest extends TestBase {
   }
 
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testImportMnemonicWithLongestNamePWDPositive() {
     String importMnemonic = "crew assume asset trip trim violin exhaust used bird slow universe jealous";
     String walletNameLong = "LongestTest Mnemonic";
@@ -68,7 +68,7 @@ public class ImportWalletTest extends TestBase {
     Assert.assertEquals(app.createPage.navigateWalletName.getText(), importWalletName);
   }
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testCannotImportMnemonicWithSameNameNegative() {
     String importMnemonic = "crew assume asset trip trim violin exhaust used bird slow universe jealous";
     String walletName = "钱包Test1"; // same name with create wallet case
@@ -91,7 +91,7 @@ public class ImportWalletTest extends TestBase {
   }
 
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testImportKeystoreFromSetting() throws InterruptedException {
     String walletName = "importWalletKeystore";
     String pwd = "Aa111111";
@@ -127,7 +127,7 @@ public class ImportWalletTest extends TestBase {
 
   }
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testImportKeystoreWrongPWDFromSettingNegative()
       throws InterruptedException, AWTException {
     String walletName = "Keystore Error PWD";
@@ -161,7 +161,7 @@ public class ImportWalletTest extends TestBase {
     app.settingPage.backToMainWindow();
   }
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testImportKeystoreLongestNameFromSettingPositive()
       throws InterruptedException {
     String walletName = "Keystore Name1234567";

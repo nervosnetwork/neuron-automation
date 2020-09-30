@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="CKB System Testing" parallel="classes" thread-count="1">
+<suite name="CKB System Testing" thread-count="1">
   <listeners>
     <listener class-name="com.cryptape.neuron.framework.TestRunnerListener"/>
     <listener class-name="com.cryptape.neuron.framework.utils.RetryListener"/>

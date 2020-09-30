@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 public class BackupWalletTest extends TestBase {
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testBackupWalletFromSetting() throws InterruptedException {
     String backupName =
         app.settingPage.navigateWalletName.getText() + new Date().getTime() + "backup.json";

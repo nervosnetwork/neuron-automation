@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 public class DeleteWalletTest extends TestBase {
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testDeleteAllWalletFromSetting() throws InterruptedException {
 
     app.settingPage.navigateToSettingPage();
@@ -31,7 +31,7 @@ public class DeleteWalletTest extends TestBase {
 
   }
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testDeleteAWalletByWrongPWDNegative() {
     app.settingPage.navigateToSettingPage();
     app.settingPage.clickWalletsTab();

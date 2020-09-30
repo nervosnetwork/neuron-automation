@@ -1,7 +1,6 @@
 package com.cryptape.neuron;
 
 import com.cryptape.neuron.framework.TestBase;
-import java.awt.AWTException;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.io.File;
@@ -11,7 +10,7 @@ import org.testng.annotations.Test;
 
 public class ReceivePageTest extends TestBase {
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testReceiveSaveImage() throws InterruptedException {
     app.receivePage.navigateToReceivePage();
     app.receivePage.clickSaveImageButton();

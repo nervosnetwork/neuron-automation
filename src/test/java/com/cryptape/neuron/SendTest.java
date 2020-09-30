@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 public class SendTest extends TestBase {
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testNormalTransfer() throws Exception {
     importMinerKeystore();
 

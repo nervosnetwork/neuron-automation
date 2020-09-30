@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 public class NetworkTest extends TestBase {
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testAddNetwork() throws InterruptedException {
     String addNetworkName = "Add new NetworkName 28 chars";
     String addNetworkURL = "http://localhost:8225"; // url with http
@@ -31,7 +31,7 @@ public class NetworkTest extends TestBase {
     app.settingPage.backToMainWindow();
   }
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testEditNetwork() {
     String updateNetworkName = "Updated NetworkName 28 chars";
     String updateNetworkURL = "https://localhost:8115"; //url with https
@@ -57,7 +57,7 @@ public class NetworkTest extends TestBase {
     app.settingPage.backToMainWindow();
   }
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testEditNetworkURL() throws InterruptedException {
     String updateNetworkURL = "http://localhost:8116";
 
@@ -77,7 +77,7 @@ public class NetworkTest extends TestBase {
     app.settingPage.backToMainWindow();
   }
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testEditNetworkName() throws InterruptedException {
     String updateNetworkName = "UpdatedNetworkName28chars123";
 
@@ -97,7 +97,7 @@ public class NetworkTest extends TestBase {
     app.settingPage.backToMainWindow();
   }
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testCancelAddNetwork() {
     app.settingPage.navigateToSettingPage();
     app.settingPage.clickNetworkTab();
@@ -114,7 +114,7 @@ public class NetworkTest extends TestBase {
     app.settingPage.backToMainWindow();
   }
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testCancelEditNetwork() {
     String updateNetworkName = "Cancel Update NetworkName";
     String updateNetworkURL = "http://localhost:8115";
@@ -137,7 +137,7 @@ public class NetworkTest extends TestBase {
     app.settingPage.backToMainWindow();
   }
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testEditNetworkInvalidURLNegative() {
     String updateNetworkURL = "localhost:8115";
     app.settingPage.navigateToSettingPage();
@@ -152,7 +152,7 @@ public class NetworkTest extends TestBase {
     app.settingPage.backToMainWindow();
   }
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testEditNetworkWithSameInfoNegative(){
     app.settingPage.navigateToSettingPage();
     app.settingPage.clickNetworkTab();
@@ -169,7 +169,7 @@ public class NetworkTest extends TestBase {
     app.settingPage.backToMainWindow();
   }
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testEditNetworkWithLongURL() throws InterruptedException {
     String updateNetworkURL =
         "http://localhost1234567890abcdefghijklmnopqrstuvwxyz~!@#$%^}|:<>?'';1234567890qwertyuiopsdfghjklzxcvbnm:811677777777777777777777777";
@@ -185,7 +185,7 @@ public class NetworkTest extends TestBase {
     app.settingPage.backToMainWindow();
   }
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testCannotDeleteFirstNetwork() {
     app.settingPage.navigateToSettingPage();
     app.settingPage.clickNetworkTab();
@@ -197,7 +197,7 @@ public class NetworkTest extends TestBase {
         "Number of delete button should be 1 less than number edit button");
   }
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testDeleteAllNetworkExceptFirst() throws InterruptedException {
     app.settingPage.navigateToSettingPage();
     app.settingPage.clickNetworkTab();

@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 public class EditWalletTest extends TestBase {
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testEditWallet() throws InterruptedException {
     app.settingPage.navigateToSettingPage();
     app.settingPage.clickWalletsTab();
@@ -31,7 +31,7 @@ public class EditWalletTest extends TestBase {
 
   }
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testEditWalletClearNameCntSaveNegative() throws InterruptedException {
     app.settingPage.navigateToSettingPage();
     app.settingPage.clickWalletsTab();
@@ -46,7 +46,7 @@ public class EditWalletTest extends TestBase {
     app.settingPage.backToMainWindow();
   }
 
-  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWallet")
+  @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testEditWalletNameWithSpecialCharsPositive() throws InterruptedException {
     app.settingPage.navigateToSettingPage();
     app.settingPage.clickWalletsTab();
