@@ -12,7 +12,7 @@
       <class name="com.cryptape.neuron.EditWalletTest"/>
       <class name="com.cryptape.neuron.ReceivePageTest"/>
       <class name="com.cryptape.neuron.ImportWalletTest"/>
-      <!--<class name="com.cryptape.neuron.SendTest"/>-->
+      <class name="com.cryptape.neuron.SendTest"/>
       <class name="com.cryptape.neuron.BackupWalletTest"/>
       <class name="com.cryptape.neuron.NetworkTest"/>
       <class name="com.cryptape.neuron.DeleteWalletTest"/>

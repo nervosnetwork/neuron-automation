@@ -26,6 +26,8 @@ public class SendPage extends PageBase {
   public List<WebElement> addBtnList;
   @FindBy(css = "img[data-type='remove']")
   public List<WebElement> removeBtnList;
+  @FindBy(css = "button[data-type='set']")
+  public List<WebElement> setLockTimeList;
   @FindBy(css = "#description")
   public WebElement inputDescription;
   @FindBy(css = "button[role='switch']")
@@ -41,6 +43,10 @@ public class SendPage extends PageBase {
   @FindBy(css = "div[class^='send_actions'] button[type='submit']")
   public WebElement submitBtn;
 
+  @FindBy(css = "div[class*='sendFieldset_addressField'] span[class^='textField_errorMessage']")
+  public WebElement addressErrorMsg;
+  @FindBy(css = "div[class^='sendFieldset_fullAddrInfo'] span")
+  public WebElement fullAddressErrorMsg;
 
   public SendPage(ChromeDriver driver) throws AWTException {
     super(driver);
@@ -55,7 +61,7 @@ public class SendPage extends PageBase {
     try {
       maxBtn.click();
     } catch (Exception e) {
-      util.waitForElementLocated(this.driver, 30, maxBtn).click();
+      util.waitForElementLocated(this.driver, 10, maxBtn).click();
     }
   }
 
@@ -64,7 +70,7 @@ public class SendPage extends PageBase {
     try {
       addBtnList.get(index).click();
     } catch (Exception e) {
-      util.waitForElementLocated(this.driver, 30, addBtnList.get(index)).click();
+      util.waitForElementLocated(this.driver, 10, addBtnList.get(index)).click();
     }
   }
 
@@ -73,7 +79,15 @@ public class SendPage extends PageBase {
     try {
       removeBtnList.get(index).click();
     } catch (Exception e) {
-      util.waitForElementLocated(this.driver, 30, removeBtnList.get(index)).click();
+      util.waitForElementLocated(this.driver, 10, removeBtnList.get(index)).click();
+    }
+  }
+
+  public void clickSetLockTime(int index) {
+    try {
+      setLockTimeList.get(index).click();
+    } catch (Exception e) {
+      util.waitForElementLocated(this.driver, 10, setLockTimeList.get(index)).click();
     }
   }
 

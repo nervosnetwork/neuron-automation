@@ -64,10 +64,6 @@ function system-test(){
   mvn clean test -DsuiteXmlFile=systemTest.xml
 }
 
-function sendtx-test(){
-  mvn clean test -DsuiteXmlFile=sendTXTest.xml
- }
-
 usage(){
     echo "      Usage: $0 COMMAND [args...]"
     echo "      Default Commands: download | install_win | system-test | send-test"
