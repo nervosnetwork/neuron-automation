@@ -149,7 +149,11 @@ public class SettingPage extends PageBase {
   }
 
   public void clickSaveButton() {
-    saveBtn.click();
+    try {
+      saveBtn.click();
+    } catch (Exception e) {
+      util.waitForElementLocated(this.driver, 15, saveBtn).click();
+    }
   }
 
   public void clickCancelButton() {

@@ -52,6 +52,7 @@ public class SendTest extends TestBase {
     String cmdMiner = ckbPath + "ckb.exe miner -C " + nodePath + " --limit 5";
     runCommand("\"" + cmdMiner + "\"");
 
+    Thread.sleep(5);
     waitForTXCommitted(txHash);
     int latestNum = getTXSeqNum(txHash);
     Assert.assertEquals(
@@ -181,6 +182,7 @@ public class SendTest extends TestBase {
     String cmdMiner = ckbPath + "ckb.exe miner -C " + nodePath + " --limit 5";
     runCommand("\"" + cmdMiner + "\"");
 
+    Thread.sleep(5);
     waitForTXCommitted(txHash);
     int latestNum = getTXSeqNum(txHash);
     Assert.assertEquals(
@@ -221,6 +223,7 @@ public class SendTest extends TestBase {
     String cmdMiner = ckbPath + "ckb.exe miner -C " + nodePath + " --limit 5";
     runCommand("\"" + cmdMiner + "\"");
 
+    Thread.sleep(5);
     waitForTXCommitted(txHash);
     int latestNum = getTXSeqNum(txHash);
     Assert.assertEquals(
