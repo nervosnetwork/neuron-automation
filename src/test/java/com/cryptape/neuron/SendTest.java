@@ -415,7 +415,7 @@ public class SendTest extends TestBase {
         }
         return false;
       }
-    }, 30, 1);
+    }, 60, 1);
 
     if (!waitTXCommitted) {
       throw new Exception("timeout to wait for tx to be committed!");
