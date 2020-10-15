@@ -21,6 +21,12 @@ public class PageBase {
   public WebElement pwdCancelBtn;
   @FindBy(css = "div[class^='passwordRequest'] button[data-type='submit']")
   public WebElement pwdSubmitBtn;
+  @FindBy(css = "span[class^='networkStatus_name']")
+  public WebElement networkStatus;
+  @FindBy(xpath = "(//span[starts-with(@class,'networkStatus_blockNumber')])[1]")
+  public WebElement networkStatusTipBlockNum;
+  @FindBy(xpath = "(//span[starts-with(@class,'networkStatus_blockNumber')])[2]")
+  public WebElement networkStatusSyncedBlockNum;
 
   public ChromeDriver driver;
   public CommonUtil util = new CommonUtil();

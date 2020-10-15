@@ -9,6 +9,7 @@
   <test verbose="2" name="Neuron UI Tests" preserve-order="true">
     <classes>
       <class name="com.cryptape.neuron.CreateWalletTest"/>
+      <class name="com.cryptape.neuron.SettingTest"/>
       <class name="com.cryptape.neuron.EditWalletTest"/>
       <class name="com.cryptape.neuron.ReceivePageTest"/>
       <class name="com.cryptape.neuron.ImportWalletTest"/>

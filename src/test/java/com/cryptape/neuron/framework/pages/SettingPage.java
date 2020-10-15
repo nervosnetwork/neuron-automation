@@ -29,6 +29,12 @@ public class SettingPage extends PageBase {
   // GeneralTab
   @FindBy(css = "span[class^='ms-Dropdown-title']")
   public WebElement language;
+  @FindBy(xpath = "(//div[starts-with(@class,'style_clearCache')])[2]")
+  public WebElement clearCacheBtn;
+  @FindBy(css = "#rebuild-cache-option")
+  public WebElement rebuildCacheCheckbox;
+  @FindBy(css = "div[class^='style_footer']>button[type='submit']")
+  public WebElement submitClearCacheBtn;
 
   // WalletsTab
   @FindBy(css = "button[arial-label='create a wallet']")
@@ -45,7 +51,6 @@ public class SettingPage extends PageBase {
   public List<WebElement> deleteWalletBtnList;
   @FindBy(css = "button[data-action='backup']")
   public List<WebElement> backupWalletBtnList;
-
 
   // edit/delete/backup network buttons
   @FindBy(css = "button[data-action='edit']")
@@ -237,6 +242,30 @@ public class SettingPage extends PageBase {
       deleteNetworkBtnList.get(index).click();
     } catch (Exception e) {
       util.waitForElementLocated(this.driver, 10, deleteNetworkBtnList.get(index)).click();
+    }
+  }
+
+  public void clickClearCache() {
+    try {
+      clearCacheBtn.click();
+    } catch (Exception e) {
+      util.waitForElementLocated(this.driver, 10, clearCacheBtn).click();
+    }
+  }
+
+  public void checkRebuildCache() {
+    try {
+      rebuildCacheCheckbox.click();
+    } catch (Exception e) {
+      util.waitForElementLocated(this.driver, 10, rebuildCacheCheckbox).click();
+    }
+  }
+
+  public void clickSubmitClearCacheButton(){
+    try {
+      submitClearCacheBtn.click();
+    } catch (Exception e) {
+      util.waitForElementLocated(this.driver, 10, submitClearCacheBtn).click();
     }
   }
 

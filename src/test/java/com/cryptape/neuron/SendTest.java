@@ -15,16 +15,16 @@ public class SendTest extends TestBase {
   int times = 0;
 
   @BeforeClass
-  void getLanguage() {
+  void getLanguage() throws InterruptedException {
     app.settingPage.navigateToSettingPage();
     app.settingPage.clickGeneralTab();
     language = System.getProperty("user.language");
     System.out.println("language is: " + language);
+    importMinerKeystore();
   }
 
   @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testNormalTransfer() throws Exception {
-    importMinerKeystore();
     app.historyPage.navigateToHistoryPage();
     waitForHistoryListUpdate(0);
     int txInitSize = app.historyPage.transactionSummaryList.size();
@@ -42,6 +42,7 @@ public class SendTest extends TestBase {
     app.sendPage.clickSubmitButton();
     app.sendPage.inputPWD.sendKeys("Aa111111");
     app.sendPage.clickPWDSubmit();
+    app.sendPage.mouseover(app.driver, app.sendPage.networkStatus);
 
     waitForHistoryListUpdate(txInitSize);
     String txHash = app.historyPage.transactionSummaryList.get(0).getAttribute("data-hash");
@@ -65,7 +66,6 @@ public class SendTest extends TestBase {
 
   @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testInvalidFormatAddr() throws Exception {
-    importMinerKeystore();
     app.historyPage.navigateToHistoryPage();
     app.sendPage.navigateToSendPage();
     app.sendPage.inputAddress.clear();
@@ -80,7 +80,6 @@ public class SendTest extends TestBase {
 
   @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testInvalidChainAddr() throws Exception {
-    importMinerKeystore();
     app.historyPage.navigateToHistoryPage();
     app.sendPage.navigateToSendPage();
     app.sendPage.inputAddress.clear();
@@ -95,8 +94,6 @@ public class SendTest extends TestBase {
 
   @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testAddandRemoveButton() throws Exception {
-    importMinerKeystore();
-
     app.historyPage.navigateToHistoryPage();
     waitForHistoryListUpdate(0);
 
@@ -126,8 +123,6 @@ public class SendTest extends TestBase {
 
   @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testMaxButton() throws Exception {
-    importMinerKeystore();
-
     app.historyPage.navigateToHistoryPage();
     waitForHistoryListUpdate(0);
 
@@ -158,7 +153,6 @@ public class SendTest extends TestBase {
 
   @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testMultiSigShortAddrTransfer() throws Exception {
-    importMinerKeystore();
     app.historyPage.navigateToHistoryPage();
     waitForHistoryListUpdate(0);
     int txInitSize = app.historyPage.transactionSummaryList.size();
@@ -172,6 +166,7 @@ public class SendTest extends TestBase {
     app.sendPage.clickSubmitButton();
     app.sendPage.inputPWD.sendKeys("Aa111111");
     app.sendPage.clickPWDSubmit();
+    app.sendPage.mouseover(app.driver, app.sendPage.networkStatus);
 
     waitForHistoryListUpdate(txInitSize);
     String txHash = app.historyPage.transactionSummaryList.get(0).getAttribute("data-hash");
@@ -192,7 +187,6 @@ public class SendTest extends TestBase {
 
   @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testMultiSigFullAddrTransfer() throws Exception {
-    importMinerKeystore();
     app.historyPage.navigateToHistoryPage();
     waitForHistoryListUpdate(0);
     int txInitSize = app.historyPage.transactionSummaryList.size();
@@ -213,6 +207,7 @@ public class SendTest extends TestBase {
     app.sendPage.clickSubmitButton();
     app.sendPage.inputPWD.sendKeys("Aa111111");
     app.sendPage.clickPWDSubmit();
+    app.sendPage.mouseover(app.driver, app.sendPage.networkStatus);
 
     waitForHistoryListUpdate(txInitSize);
     String txHash = app.historyPage.transactionSummaryList.get(0).getAttribute("data-hash");
@@ -233,8 +228,6 @@ public class SendTest extends TestBase {
 
   @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testLockTimeNotAvailableForTypeFullAddrTransfer() throws Exception {
-    importMinerKeystore();
-
     app.historyPage.navigateToHistoryPage();
     waitForHistoryListUpdate(0);
     app.sendPage.navigateToSendPage();
@@ -257,8 +250,6 @@ public class SendTest extends TestBase {
 
   @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testLockTimeNotAvailableForDataFullAddrTransfer() throws Exception {
-    importMinerKeystore();
-
     app.historyPage.navigateToHistoryPage();
     waitForHistoryListUpdate(0);
     app.sendPage.navigateToSendPage();
@@ -281,8 +272,6 @@ public class SendTest extends TestBase {
 
   @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testLockTimeOnlyAvailableForBlake160ShortAddrTransfer() throws Exception {
-    importMinerKeystore();
-
     app.historyPage.navigateToHistoryPage();
     waitForHistoryListUpdate(0);
     app.sendPage.navigateToSendPage();
@@ -415,7 +404,7 @@ public class SendTest extends TestBase {
         }
         return false;
       }
-    }, 60, 1);
+    }, 80, 1);
 
     if (!waitTXCommitted) {
       throw new Exception("timeout to wait for tx to be committed!");
