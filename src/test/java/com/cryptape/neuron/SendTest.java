@@ -199,10 +199,6 @@ public class SendTest extends TestBase {
     fillInTXinfo(
         "ckt1q3w9q60tppt7l3j7r09qcp7lxnp3vcanvgha8pmvsa3jplykxn3233tp8hl2y82mq0aud9fmruqpa0g0a738xz42803",
         "120.120");
-    String addressErrorMsg = app.sendPage.fullAddressErrorMsg.getText();
-    verifyAddressErrorMsg(addressErrorMsg,
-        "收款方可能需要第三方软件才能操作该地址资产, 请再次确认地址有效性",
-        "Additional software or dApp interface might be required to operate the assets on this address. Please double check its validity.");
 
     app.sendPage.clickSubmitButton();
     app.sendPage.inputPWD.sendKeys("Aa111111");
@@ -240,10 +236,6 @@ public class SendTest extends TestBase {
     app.sendPage.inputAmount.clear();
     app.sendPage.inputAddress.sendKeys(
         "ckt1qjda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xw39xpwg8al7vdrsqspnasu7hy9ersk5cpj33ej9w");
-    String addressErrorMsg = app.sendPage.fullAddressErrorMsg.getText();
-    verifyAddressErrorMsg(addressErrorMsg,
-        "收款方可能需要第三方软件才能操作该地址资产, 请再次确认地址有效性",
-        "Additional software or dApp interface might be required to operate the assets on this address. Please double check its validity.");
     Assert.assertTrue(app.sendPage.setLockTimeList.isEmpty(),
         "set Locktime is not available for type full address");
   }
@@ -262,10 +254,6 @@ public class SendTest extends TestBase {
     app.sendPage.inputAmount.clear();
     app.sendPage.inputAddress.sendKeys(
         "ckt1qfcf7076zt6krnavly3883t6nrlduxy28ud9nv0c3rg387wvuzryn9xpwg8al7vdrsqspnasu7hy9ersk5cpjqgrsfr");
-    String addressErrorMsg = app.sendPage.fullAddressErrorMsg.getText();
-    verifyAddressErrorMsg(addressErrorMsg,
-        "收款方可能需要第三方软件才能操作该地址资产, 请再次确认地址有效性",
-        "Additional software or dApp interface might be required to operate the assets on this address. Please double check its validity.");
     Assert.assertTrue(app.sendPage.setLockTimeList.isEmpty(),
         "set Locktime is not available for data full address");
   }

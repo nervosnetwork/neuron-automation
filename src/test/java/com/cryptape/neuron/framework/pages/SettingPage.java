@@ -37,12 +37,15 @@ public class SettingPage extends PageBase {
   public WebElement submitClearCacheBtn;
 
   // WalletsTab
-  @FindBy(css = "button[arial-label='create a wallet']")
+  @FindBy(css = "div[class^='walletSetting_actions']>button:nth-of-type(1)")
   public WebElement createWalletBtn;
-  @FindBy(css = "button[arial-label='import wallet seed']")
+  @FindBy(css = "div[class^='walletSetting_actions']>button:nth-of-type(2)")
   public WebElement importMnemonicBtn;
-  @FindBy(css = "button[arial-label='import from keystore']")
+  @FindBy(css = "div[class^='walletSetting_actions']>button:nth-of-type(3)")
   public WebElement importKeystoreBtn;
+  @FindBy(css = "div[class^='walletSetting_actions']>button:nth-of-type(4)")
+  public WebElement importHardwareWalletBtn;
+
 
   // edit/delete/backup wallet buttons
   @FindBy(css = "button[data-action='edit']")
