@@ -18,7 +18,7 @@ public class SettingTest extends TestBase {
     app.settingPage.backToMainWindow();
     app.settingPage.mouseover(app.driver, app.settingPage.networkStatus);
 
-    Assert.assertEquals(app.settingPage.getNetStatusSyncedBlockNum(), "0");
+    Assert.assertNotEquals(app.settingPage.getNetStatusSyncedBlockNum(), "0");
 
     // wait until block synced completely
     waitForBlockSynced();
