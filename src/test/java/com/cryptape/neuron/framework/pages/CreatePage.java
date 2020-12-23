@@ -1,6 +1,7 @@
 package com.cryptape.neuron.framework.pages;
 
 import java.awt.AWTException;
+import java.util.List;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
@@ -14,13 +15,15 @@ public class CreatePage extends PageBase {
   @FindBy(css = "button[data-type='primary']")
   public WebElement dismissBtn;
 
-  @FindBy(xpath = "//i[@data-icon-name='Create']")
+  @FindBy(css = "div[class^='walletWizard_actions']>button:nth-of-type(1)")
   public WebElement createBtn;
 
-  @FindBy(xpath = "//i[@data-icon-name='Import']")
+  @FindBy(css = "div[class^='walletWizard_actions']>button:nth-of-type(2)")
   public WebElement importMnemonicBtn;
-  @FindBy(xpath = "//i[@data-icon-name='Keystore']")
+  @FindBy(css = "div[class^='walletWizard_actions']>button:nth-of-type(3)")
   public WebElement importKeystoreBtn;
+  @FindBy(css = "div[class^='walletWizard_actions']>button:nth-of-type(4)")
+  public WebElement importHardwareWalletBtn;
 
   // ImportKeystore page
   @FindBy(css = "#path")

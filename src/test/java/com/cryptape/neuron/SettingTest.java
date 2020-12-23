@@ -18,17 +18,17 @@ public class SettingTest extends TestBase {
     app.settingPage.backToMainWindow();
     app.settingPage.mouseover(app.driver, app.settingPage.networkStatus);
 
-    Assert.assertEquals(app.settingPage.networkStatusSyncedBlockNum.getText(), "0");
+    Assert.assertNotEquals(app.settingPage.getNetStatusSyncedBlockNum(), "0");
 
     // wait until block synced completely
     waitForBlockSynced();
 
     System.out
-        .println("Tip block number is: " + app.settingPage.networkStatusTipBlockNum.getText());
+        .println("Tip block number is: " + app.settingPage.getNetStatusTipBlockNum());
     System.out.println(
-        "Synced block number is: " + app.settingPage.networkStatusSyncedBlockNum.getText());
-    Assert.assertEquals(app.settingPage.networkStatusTipBlockNum.getText(),
-        app.settingPage.networkStatusSyncedBlockNum.getText());
+        "Synced block number is: " + app.settingPage.getNetStatusSyncedBlockNum());
+    Assert.assertEquals(app.settingPage.getNetStatusTipBlockNum(),
+        app.settingPage.getNetStatusSyncedBlockNum());
   }
 
   @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
@@ -45,19 +45,19 @@ public class SettingTest extends TestBase {
     waitForBlockSynced();
 
     System.out
-        .println("Tip block number is: " + app.settingPage.networkStatusTipBlockNum.getText());
+        .println("Tip block number is: " + app.settingPage.getNetStatusTipBlockNum());
     System.out.println(
-        "Synced block number is: " + app.settingPage.networkStatusSyncedBlockNum.getText());
-    Assert.assertEquals(app.settingPage.networkStatusTipBlockNum.getText(),
-        app.settingPage.networkStatusSyncedBlockNum.getText());
+        "Synced block number is: " + app.settingPage.getNetStatusSyncedBlockNum());
+    Assert.assertEquals(app.settingPage.getNetStatusTipBlockNum(),
+        app.settingPage.getNetStatusSyncedBlockNum());
   }
 
   void waitForBlockSynced() {
     waitFor(new WaitUntil() {
       @Override
       public boolean waitUntil() {
-        if (app.historyPage.networkStatusSyncedBlockNum.getText()
-            .equals(app.settingPage.networkStatusTipBlockNum.getText())) {
+        if (app.settingPage.getNetStatusSyncedBlockNum()
+            .equals(app.settingPage.getNetStatusTipBlockNum())) {
           return true;
         }
         return false;

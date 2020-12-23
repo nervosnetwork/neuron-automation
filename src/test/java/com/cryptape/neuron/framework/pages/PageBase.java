@@ -23,10 +23,9 @@ public class PageBase {
   public WebElement pwdSubmitBtn;
   @FindBy(css = "span[class^='networkStatus_name']")
   public WebElement networkStatus;
-  @FindBy(xpath = "(//span[starts-with(@class,'networkStatus_blockNumber')])[1]")
-  public WebElement networkStatusTipBlockNum;
-  @FindBy(xpath = "(//span[starts-with(@class,'networkStatus_blockNumber')])[2]")
-  public WebElement networkStatusSyncedBlockNum;
+  @FindBy(css = "span[class^='networkStatus_blockNumber']")
+  public WebElement networkStatusBlockNum;
+  String blockNum;
 
   public ChromeDriver driver;
   public CommonUtil util = new CommonUtil();
@@ -34,6 +33,16 @@ public class PageBase {
 
   public PageBase(ChromeDriver driver) throws AWTException {
     this.driver = driver;
+  }
+
+  public String getNetStatusTipBlockNum() {
+    blockNum = networkStatusBlockNum.getText();
+    return blockNum.substring(blockNum.indexOf("/") + 1);
+  }
+
+  public String getNetStatusSyncedBlockNum() {
+    blockNum = networkStatusBlockNum.getText();
+    return blockNum.substring(0, blockNum.indexOf("/"));
   }
 
   // click cancel button on password request window
