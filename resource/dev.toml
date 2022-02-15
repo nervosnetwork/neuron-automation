@@ -9,7 +9,7 @@ uncles_hash = "0x000000000000000000000000000000000000000000000000000000000000000
 nonce = "0x0"
 
 [genesis.genesis_cell]
-message = "ckb_dev"
+message = "ckb_dev_ui_automation"
 
 [genesis.genesis_cell.lock]
 code_hash = "0x0000000000000000000000000000000000000000000000000000000000000000"
@@ -92,6 +92,15 @@ genesis_epoch_length = 20
 # For development and testing purposes only.
 # Keep difficulty be permanent if the pow is Dummy. (default: false)
 permanent_difficulty_in_dummy = true
+
+[params.hardfork]
+rfc_0028 = 0
+rfc_0029 = 0
+rfc_0030 = 0
+rfc_0031 = 0
+rfc_0032 = 0
+rfc_0036 = 0
+rfc_0038 = 0
 
 [pow]
 func = "Dummy"
