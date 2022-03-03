@@ -10,7 +10,9 @@ UI automation tests for [Neuron Wallet](https://github.com/nervosnetwork/neuron/
 * Maven
 
 ## Running the tests
-Before running test, please make sure to fulfill the `ckbPath` and `nodePath` in the [neuronConfig.yml](neuronConfig.yml) file.
+Before running test:
+1. copy the [neuronConfig.yml.sample](neuronConfig.yml.sample) file to `neuronConfig.yml` .
+2. make sure to update the `ckbPath` and `nodePath` in the `neuronConfig.yml` file.
 
 Run system/send transaction tests:
 ```$xslt
