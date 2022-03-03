@@ -51,7 +51,7 @@ public class TestBase {
     runCommand("\"" + cmdCopyDev + "\"");
 
     // run ckb node
-    String cmd2 = ckbPath + "\\ckb.exe run -C " + nodePath;
+    String cmd2 = (ckbPath + "\\ckb.exe run -C " + nodePath).replace("/", "\\");
     runCommand("start cmd.exe /K " + "\"" + cmd2 + "\"");
     // wait for ckb node start up
     Thread.sleep(3000);

@@ -50,7 +50,7 @@ public class SendTest extends TestBase {
     Assert.assertEquals(app.historyPage.transactionSummaryList.get(0).getAttribute("data-status"),
         "pending");
 
-    String cmdMiner = ckbPath + "ckb.exe miner -C " + nodePath + " --limit 5";
+    String cmdMiner = ckbPath + "//ckb.exe miner -C " + nodePath + " --limit 5";
     runCommand("\"" + cmdMiner + "\"");
 
     Thread.sleep(5);
@@ -174,7 +174,7 @@ public class SendTest extends TestBase {
     Assert.assertEquals(app.historyPage.transactionSummaryList.get(0).getAttribute("data-status"),
         "pending");
 
-    String cmdMiner = ckbPath + "ckb.exe miner -C " + nodePath + " --limit 5";
+    String cmdMiner = ckbPath + "//ckb.exe miner -C " + nodePath + " --limit 5";
     runCommand("\"" + cmdMiner + "\"");
 
     Thread.sleep(5);
@@ -211,7 +211,7 @@ public class SendTest extends TestBase {
     Assert.assertEquals(app.historyPage.transactionSummaryList.get(0).getAttribute("data-status"),
         "pending");
 
-    String cmdMiner = ckbPath + "ckb.exe miner -C " + nodePath + " --limit 5";
+    String cmdMiner = ckbPath + "//ckb.exe miner -C " + nodePath + " --limit 5";
     runCommand("\"" + cmdMiner + "\"");
 
     Thread.sleep(5);

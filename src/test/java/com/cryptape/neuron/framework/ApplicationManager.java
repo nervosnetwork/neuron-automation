@@ -37,7 +37,7 @@ public class ApplicationManager {
     // sleep before start up for CI
     Thread.sleep(30000);
 
-    options.setBinary(System.getenv("LOCALAPPDATA") + "/Programs/Neuron/Neuron.exe");
+    options.setBinary(System.getenv("LOCALAPPDATA") + "/Programs/Neuron/Neuron.exe".replace("/", "\\"));
     System.setProperty("webdriver.chrome.driver", getYMLValue("chromedriverPath"));
     driver = new ChromeDriver(options);
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
