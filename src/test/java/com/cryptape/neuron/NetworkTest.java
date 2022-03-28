@@ -32,7 +32,7 @@ public class NetworkTest extends TestBase {
   }
 
   @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
-  public void testEditNetwork() {
+  public void testEditNetwork() throws InterruptedException {
     String updateNetworkName = "Updated NetworkName 28 chars";
     String updateNetworkURL = "https://localhost:8115"; //url with https
 
@@ -52,6 +52,7 @@ public class NetworkTest extends TestBase {
 
     app.settingPage.clickSaveButton();
 
+    Thread.sleep(1000);
     assertThat(app.settingPage.getNetworkNameText(0), containsString(updateNetworkName));
     assertThat(app.settingPage.getNetworkURLText(0), containsString(updateNetworkURL));
     app.settingPage.backToMainWindow();
@@ -73,6 +74,7 @@ public class NetworkTest extends TestBase {
 
     app.settingPage.clickSaveButton();
 
+    Thread.sleep(1000);
     assertThat(app.settingPage.getNetworkURLText(0), containsString(updateNetworkURL));
     app.settingPage.backToMainWindow();
   }
@@ -93,6 +95,7 @@ public class NetworkTest extends TestBase {
 
     app.settingPage.clickSaveButton();
 
+    Thread.sleep(1000);
     assertThat(app.settingPage.getNetworkNameText(0), containsString(updateNetworkName));
     app.settingPage.backToMainWindow();
   }
@@ -181,6 +184,7 @@ public class NetworkTest extends TestBase {
     app.networkPage.inputRPCURL.clear();
     app.networkPage.inputRPCURL.sendKeys(updateNetworkURL);
     app.settingPage.clickSaveButton();
+    Thread.sleep(1000);
     assertThat(app.settingPage.getNetworkURLText(0), containsString(updateNetworkURL));
     app.settingPage.backToMainWindow();
   }
