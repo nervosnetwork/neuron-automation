@@ -1,0 +1,3 @@
+ckbPath: #replace here with the full path where ckb binary located, e.g. D:/ckb/ #
+nodePath: #replace here with ckb node's full path, e.g. D:/ckb/devNet #
+chromedriverPath: ./chromedriver-v16.0.6-win32-x64/chromedriver.exe

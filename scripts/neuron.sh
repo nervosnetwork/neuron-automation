@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-NEURON_VERSION=$(git ls-remote -t --refs https://github.com/nervosnetwork/neuron.git | sed -E 's/^[[:xdigit:]]+[[:space:]]+refs\/tags\/(.+)/\1/g' | tail -n1)
-CKB_VERSION=$(cat .ckb-version)
+NEURON_VERSION=$(curl --silent "https://api.github.com/repos/nervosnetwork/neuron/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+CKB_VERSION=$(curl https://raw.githubusercontent.com/nervosnetwork/neuron/master/.ckb-version)
 NEURON_DIR=$(pwd)/resourcedownload
 NEURON_WIN_FILE_PATH=${NEURON_DIR}/Neuron-${NEURON_VERSION}-setup.exe
 NEURON_MAC_FILE_PATH=${NEURON_DIR}/Neuron-${NEURON_VERSION}.dmg
