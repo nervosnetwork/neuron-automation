@@ -236,8 +236,8 @@ public class SendTest extends TestBase {
     app.sendPage.inputAmount.clear();
     app.sendPage.inputAddress.sendKeys(
         "ckt1qjda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xw39xpwg8al7vdrsqspnasu7hy9ersk5cpj33ej9w");
-    Assert.assertTrue(app.sendPage.setLockTimeList.isEmpty(),
-        "set Locktime is not available for type full address");
+    Assert.assertFalse(app.sendPage.setLockTimeList.isEmpty(),
+        "set Locktime is available for type full address");
   }
 
   @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
