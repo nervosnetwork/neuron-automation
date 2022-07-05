@@ -17,6 +17,8 @@ public class SettingPage extends PageBase {
   public WebElement walletsTab;
   @FindBy(css = "button[id$='Tab2'")
   public WebElement networkTab;
+  @FindBy(css = "button[id$='Tab3'")
+  public WebElement dataTab;
   @FindBy(css = ".ms-ChoiceFieldLabel")
   public List<WebElement> walletList;
   @FindBy(css = "span[class^='networkSetting_networkLabel']")
@@ -29,7 +31,7 @@ public class SettingPage extends PageBase {
   // GeneralTab
   @FindBy(css = "span[class^='ms-Dropdown-title']")
   public WebElement language;
-  @FindBy(xpath = "(//div[starts-with(@class,'style_clearCache')])[2]")
+  @FindBy(xpath = "//*[text()='Clear Cache']")
   public WebElement clearCacheBtn;
   @FindBy(css = "#rebuild-cache-option")
   public WebElement rebuildCacheCheckbox;
@@ -136,6 +138,14 @@ public class SettingPage extends PageBase {
     }
   }
 
+  public void clickDataTab() {
+    try {
+      dataTab.click();
+    } catch (Exception e) {
+      util.waitForElementLocated(this.driver, 15, dataTab).click();
+    }
+  }
+  
   public void clickGeneralTab() {
     try {
       generalTab.click();
