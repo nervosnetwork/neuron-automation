@@ -10,7 +10,7 @@ public class SettingTest extends TestBase {
   @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testClearCacheFullyRebuildIndex() {
     app.settingPage.navigateToSettingPage();
-    app.settingPage.clickGeneralTab();
+    app.settingPage.clickDataTab();
     app.settingPage.clickClearCache();
     // fully rebuild index
     app.settingPage.checkRebuildCache();
@@ -34,7 +34,7 @@ public class SettingTest extends TestBase {
   @Test(dependsOnMethods = "com.cryptape.neuron.CreateWalletTest.testCreateNewWalletFromMenu")
   public void testClearCacheRefresh() {
     app.settingPage.navigateToSettingPage();
-    app.settingPage.clickGeneralTab();
+    app.settingPage.clickDataTab();
     app.settingPage.clickClearCache();
     // submit be default of only refresh cache
     app.settingPage.clickSubmitClearCacheButton();
