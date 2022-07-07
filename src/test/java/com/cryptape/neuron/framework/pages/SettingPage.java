@@ -31,7 +31,9 @@ public class SettingPage extends PageBase {
   // GeneralTab
   @FindBy(css = "span[class^='ms-Dropdown-title']")
   public WebElement language;
-  @FindBy(xpath = "//*[text()='Clear Cache']")
+  
+  // DataTab
+  @FindBy(xpath = "//*[@id=\"root\"]/div/div[2]/button[3]")
   public WebElement clearCacheBtn;
   @FindBy(css = "#rebuild-cache-option")
   public WebElement rebuildCacheCheckbox;
