@@ -113,7 +113,7 @@ public class ImportWalletTest extends TestBase {
     Thread.sleep(3000);
     StringSelection stringSelection = new StringSelection(keystorePath);
     Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
-
+    Thread.sleep(3000);
     app.createPage.keyCtrlV();
     app.createPage.keyEnter();
     Thread.sleep(3000);
@@ -146,6 +146,7 @@ public class ImportWalletTest extends TestBase {
 
     StringSelection stringSelection = new StringSelection(keystorePath);
     Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+    Thread.sleep(3000);
     app.createPage.driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
     app.settingPage.keyCtrlV();
     app.settingPage.keyEnter();
@@ -179,6 +180,7 @@ public class ImportWalletTest extends TestBase {
     app.createPage.inputPathOfKeystore.click();
     StringSelection stringSelection = new StringSelection(keystorePath);
     Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+    Thread.sleep(3000);
     app.createPage.driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
     app.settingPage.keyCtrlV();
     app.settingPage.keyEnter();
